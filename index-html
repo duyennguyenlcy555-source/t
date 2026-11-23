@@ -1,0 +1,2975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Farming Changes the World — Interactive Digital Workbook</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Fraunces', 'serif'],
+          },
+          colors: {
+            parchment: '#FAF8F5',
+            linen: '#F2EFE9',
+            tealDeep: '#0F5C5C',
+            tealDark: '#0A4242',
+            tealSoft: '#E6F2F2',
+            terracotta: '#D96B43',
+            terracottaDark: '#B8522D',
+            ink: '#1E293B',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #FAF8F5;
+      color: #1E293B;
+    }
+    .font-display { font-family: 'Fraunces', serif; }
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: #F2EFE9; }
+    ::-webkit-scrollbar-thumb { background: #C2BCB0; border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #9E9687; }
+    @keyframes recPulse {
+      0% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(217, 107, 67, 0.65); }
+      70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(217, 107, 67, 0); }
+      100% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(217, 107, 67, 0); }
+    }
+    .recording-pulse { animation: recPulse 1.4s infinite; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-teal-100 selection:text-tealDeep">
+
+  <!-- Toast Notification Banner (No alert() used) -->
+  <div id="toastBanner" class="fixed bottom-5 right-5 z-50 hidden max-w-sm bg-ink text-white px-4 py-3 rounded-2xl shadow-xl border border-slate-700 flex items-center gap-3 transition-all duration-300">
+    <span id="toastIcon" class="text-lg">✨</span>
+    <div class="text-sm font-medium" id="toastMsg">Progress saved!</div>
+  </div>
+
+  <!-- ==================== LANDING SCREEN: ARE YOU A TEACHER OR A STUDENT? ==================== -->
+  <div id="roleWelcomeScreen" class="fixed inset-0 z-40 bg-parchment overflow-y-auto flex flex-col justify-between p-4 sm:p-8">
+    <div class="max-w-4xl w-full mx-auto my-auto space-y-8">
+      <!-- Unit Header -->
+      <div class="text-center space-y-3">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-tealSoft text-tealDeep text-xs font-bold uppercase tracking-wider border border-teal-200">
+          <span>🌾 History A1–A2 • Neolithic Period (New Stone Age)</span>
+        </div>
+        <h1 class="font-display text-3xl sm:text-5xl font-bold text-ink tracking-tight">Farming Changes the World</h1>
+        <p class="text-base sm:text-lg font-semibold text-tealDeep">Are you a Teacher or a Student?</p>
+        <p class="text-xs sm:text-sm text-stone-600 max-w-xl mx-auto">
+          Select your role below to enter the interactive digital workbook and asynchronous classroom.
+        </p>
+      </div>
+
+      <!-- Two Role Selection Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Card 1: I am a Student -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-stone-200 hover:border-tealDeep shadow-sm transition flex flex-col justify-between space-y-6">
+          <div class="space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-tealSoft text-tealDeep flex items-center justify-center text-2xl font-bold">
+              🎒
+            </div>
+            <h2 class="font-display text-2xl font-bold text-ink">I am a Student</h2>
+            <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+              Enter your Full Name and Class to complete all 5 learning stations at home with automatic progress saving, live word-count limits, instant diagnostic feedback, voice recording, and final assignment submission.
+            </p>
+            <div class="space-y-3 pt-2">
+              <div>
+                <label for="welcomeStudentName" class="block text-xs font-bold text-stone-700 mb-1">Full Name *</label>
+                <input type="text" id="welcomeStudentName" placeholder="Enter your full name..." class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm focus:outline-none focus:ring-2 focus:ring-tealDeep">
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div>
+                  <label for="welcomeStudentClass" class="block text-xs font-bold text-stone-700 mb-1">Class *</label>
+                  <input type="text" id="welcomeStudentClass" placeholder="e.g. 6A1" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm focus:outline-none focus:ring-2 focus:ring-tealDeep">
+                </div>
+                <div>
+                  <label for="welcomeStudentCode" class="block text-xs font-bold text-stone-700 mb-1">Student ID (Optional)</label>
+                  <input type="text" id="welcomeStudentCode" placeholder="e.g. HS012" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm focus:outline-none focus:ring-2 focus:ring-tealDeep">
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" onclick="enterAsStudent()" class="w-full py-3.5 px-5 rounded-2xl bg-tealDeep hover:bg-tealDark text-white font-bold text-sm shadow-sm transition flex items-center justify-center gap-2">
+            <span>Start / Resume Workbook</span>
+            <span>→</span>
+          </button>
+        </div>
+
+        <!-- Card 2: I am a Teacher -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-stone-200 hover:border-terracotta shadow-sm transition flex flex-col justify-between space-y-6">
+          <div class="space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-orange-50 text-terracotta flex items-center justify-center text-2xl font-bold">
+              👩‍🏫
+            </div>
+            <h2 class="font-display text-2xl font-bold text-ink">I am a Teacher</h2>
+            <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+              Open the live Teacher Progress Dashboard to track who has completed each station from home, inspect every typed answer, diagnose word-limit and grammar errors, listen to voice posts, and export CSV/JSON reports.
+            </p>
+            <div class="p-3.5 rounded-2xl bg-linen/90 border border-stone-200 text-xs text-stone-700 space-y-1.5">
+              <div class="font-bold text-ink">📡 Live Home-Study Tracking:</div>
+              <ul class="list-disc pl-4 space-y-1 text-stone-600">
+                <li>Zero sample profiles—only real student submissions appear.</li>
+                <li>Filter progress by class and click <strong>Inspect Answers</strong> on any student row.</li>
+                <li>Import student <strong>.json</strong> files or export class spreadsheets anytime.</li>
+              </ul>
+            </div>
+          </div>
+          <button type="button" onclick="enterAsTeacher()" class="w-full py-3.5 px-5 rounded-2xl bg-terracotta hover:bg-terracottaDark text-white font-bold text-sm shadow-sm transition flex items-center justify-center gap-2">
+            <span>Open Teacher Progress Dashboard</span>
+            <span>📊</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center text-xs text-stone-500 pt-6">
+      Classroom Sync Status: <span id="syncStatusIndicator" class="font-semibold text-tealDeep">Initializing live sync...</span>
+    </div>
+  </div>
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-stone-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- Unit Title -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-tealDeep text-white flex items-center justify-center font-display font-bold text-xl shadow-sm">
+          🌾
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-tealSoft text-tealDeep">History A1–A2</span>
+            <span class="text-xs text-stone-500 hidden sm:inline">Neolithic Period (New Stone Age)</span>
+          </div>
+          <h1 class="font-display text-lg sm:text-xl font-bold text-ink leading-tight">Farming Changes the World</h1>
+        </div>
+      </div>
+
+      <!-- Student Identity Badge -->
+      <div id="headerStudentBadge" class="flex flex-wrap items-center gap-2 bg-linen px-3 py-1.5 rounded-2xl border border-stone-200">
+        <div class="w-7 h-7 rounded-full bg-tealDeep text-white text-xs font-bold flex items-center justify-center" id="studentAvatar">ST</div>
+        <div class="flex items-center gap-1.5 text-xs">
+          <label for="headerStudentName" class="sr-only">Student Full Name</label>
+          <input id="headerStudentName" type="text" onchange="updateStudentIdentity()" placeholder="Full Name" class="w-28 sm:w-36 px-2 py-1 rounded-lg bg-white border border-stone-300 font-semibold text-ink focus:outline-none focus:ring-2 focus:ring-tealDeep" />
+          <label for="headerStudentClass" class="sr-only">Class</label>
+          <input id="headerStudentClass" type="text" onchange="updateStudentIdentity()" placeholder="Class" class="w-16 sm:w-20 px-2 py-1 rounded-lg bg-white border border-stone-300 font-medium text-stone-700 focus:outline-none focus:ring-2 focus:ring-tealDeep" />
+        </div>
+        <button type="button" onclick="openStudentProfileModal()" class="text-[11px] font-semibold text-terracotta hover:text-terracottaDark underline px-1">
+          Edit
+        </button>
+      </div>
+
+      <!-- Right Action Buttons -->
+      <div class="flex items-center gap-2">
+        <button type="button" onclick="showRoleWelcomeScreen()" class="px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-linen text-stone-700 hover:bg-stone-200 border border-stone-300 flex items-center gap-1.5 transition">
+          <span>🔄</span>
+          <span>Switch Role</span>
+        </button>
+        <button type="button" onclick="toggleReferenceDrawer()" id="btnToggleRef" class="px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-amber-50 text-amber-900 hover:bg-amber-100 border border-amber-300 flex items-center gap-1.5 transition">
+          <span>📖</span>
+          <span class="hidden md:inline">Reading &</span>
+          <span>Glossary</span>
+        </button>
+        <button type="button" onclick="toggleAppView()" id="btnToggleMode" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-tealDeep text-white hover:bg-tealDark flex items-center gap-1.5 shadow-sm transition">
+          <span id="modeToggleIcon">📊</span>
+          <span id="modeToggleLabel">Teacher Dashboard</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Student Progress Sub-bar -->
+    <div id="studentProgressSubbar" class="bg-linen/80 border-t border-stone-200/80 px-4 sm:px-6 py-2">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div class="flex items-center gap-3 flex-1">
+          <span class="text-xs font-semibold text-stone-600 whitespace-nowrap">Your Progress:</span>
+          <div class="w-full max-w-md bg-stone-200 h-2.5 rounded-full overflow-hidden">
+            <div id="globalProgressBar" class="bg-tealDeep h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+          <span id="globalProgressText" class="text-xs font-bold text-tealDeep whitespace-nowrap">0% (0/5 stations)</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-3 text-xs text-stone-600">
+          <span>Score: <strong id="globalScoreText" class="text-terracotta text-sm">0/48</strong> pts</span>
+          <span id="autoSaveBadge" class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-semibold text-[11px]">Saved ✓</span>
+          <button type="button" onclick="switchStation(6)" id="quickSubmitHeaderBtn" class="px-3 py-1 rounded-xl bg-terracotta hover:bg-terracottaDark text-white font-bold text-xs shadow-sm transition">
+            📨 Submit Assignment
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== VIEW 1: STUDENT WORKBOOK ==================== -->
+  <div id="studentWorkbookView" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 flex flex-col lg:flex-row gap-6">
+
+    <!-- Main Stations Column -->
+    <main class="flex-1 min-w-0">
+
+      <!-- 6 Station Navigation Tabs (Stations 1-5 + Final Submit) -->
+      <nav aria-label="Learning Stations" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 mb-6">
+        <button type="button" onclick="switchStation(1)" id="navStation1" class="station-tab text-left p-3 rounded-2xl border-2 transition flex flex-col justify-between bg-white border-tealDeep shadow-sm">
+          <div class="flex items-center justify-between w-full mb-1">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-tealDeep">Station 1</span>
+            <span id="badgeStation1" class="text-xs px-1.5 py-0.5 rounded-full bg-tealSoft text-tealDeep font-semibold">0/6</span>
+          </div>
+          <div class="text-xs sm:text-sm font-bold text-ink leading-snug">1. Farming Words</div>
+        </button>
+
+        <button type="button" onclick="switchStation(2)" id="navStation2" class="station-tab text-left p-3 rounded-2xl border-2 transition flex flex-col justify-between bg-white border-stone-200 hover:border-stone-300">
+          <div class="flex items-center justify-between w-full mb-1">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-stone-500">Station 2</span>
+            <span id="badgeStation2" class="text-xs px-1.5 py-0.5 rounded-full bg-stone-100 text-stone-600 font-semibold">0/6</span>
+          </div>
+          <div class="text-xs sm:text-sm font-bold text-ink leading-snug">3A. Fact File</div>
+        </button>
+
+        <button type="button" onclick="switchStation(3)" id="navStation3" class="station-tab text-left p-3 rounded-2xl border-2 transition flex flex-col justify-between bg-white border-stone-200 hover:border-stone-300">
+          <div class="flex items-center justify-between w-full mb-1">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-stone-500">Station 3</span>
+            <span id="badgeStation3" class="text-xs px-1.5 py-0.5 rounded-full bg-stone-100 text-stone-600 font-semibold">0/16</span>
+          </div>
+          <div class="text-xs sm:text-sm font-bold text-ink leading-snug">3B–D. Timeline & Map</div>
+        </button>
+
+        <button type="button" onclick="switchStation(4)" id="navStation4" class="station-tab text-left p-3 rounded-2xl border-2 transition flex flex-col justify-between bg-white border-stone-200 hover:border-stone-300">
+          <div class="flex items-center justify-between w-full mb-1">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-stone-500">Station 4</span>
+            <span id="badgeStation4" class="text-xs px-1.5 py-0.5 rounded-full bg-stone-100 text-stone-600 font-semibold">0/20</span>
+          </div>
+          <div class="text-xs sm:text-sm font-bold text-ink leading-snug">4–5A. Past Simple</div>
+        </button>
+
+        <button type="button" onclick="switchStation(5)" id="navStation5" class="station-tab text-left p-3 rounded-2xl border-2 transition flex flex-col justify-between bg-white border-stone-200 hover:border-stone-300">
+          <div class="flex items-center justify-between w-full mb-1">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-stone-500">Station 5</span>
+            <span id="badgeStation5" class="text-xs px-1.5 py-0.5 rounded-full bg-orange-100 text-terracottaDark font-semibold">Speak & Share</span>
+          </div>
+          <div class="text-xs sm:text-sm font-bold text-ink leading-snug">5B. Interview & Wall</div>
+        </button>
+
+        <button type="button" onclick="switchStation(6)" id="navStation6" class="station-tab text-left p-3 rounded-2xl border-2 transition flex flex-col justify-between bg-white border-stone-200 hover:border-terracotta">
+          <div class="flex items-center justify-between w-full mb-1">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-terracotta">Final Step</span>
+            <span id="badgeStation6" class="text-xs px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-900 font-semibold">Draft</span>
+          </div>
+          <div class="text-xs sm:text-sm font-bold text-ink leading-snug">📨 Submit Work</div>
+        </button>
+      </nav>
+
+      <!-- ==================== STATION 1: VOCABULARY MATCH ==================== -->
+      <section id="station1" class="station-panel space-y-6">
+        <div class="bg-white rounded-3xl p-5 sm:p-7 border border-stone-200 shadow-sm">
+          <div class="flex flex-wrap items-start justify-between gap-3 border-b border-stone-100 pb-4 mb-5">
+            <div>
+              <span class="inline-block text-xs font-bold uppercase tracking-wider text-tealDeep bg-tealSoft px-2.5 py-1 rounded-full mb-1">Part 1 • Vocabulary</span>
+              <h2 class="font-display text-xl sm:text-2xl font-bold text-ink">1. Farming words — Match the words to the meanings</h2>
+              <p class="text-sm text-stone-600 mt-1">Select the matching definition (<strong>a–f</strong>) for each keyword. Click <strong>Check Answers</strong> for immediate diagnostic feedback.</p>
+            </div>
+            <button type="button" onclick="openReferenceTab('glossary')" class="text-xs font-semibold px-3 py-2 rounded-xl bg-tealSoft text-tealDeep hover:bg-teal-100 transition">
+              🔤 Open Bilingual Glossary
+            </button>
+          </div>
+
+          <div id="vocabList" class="space-y-3.5">
+            <!-- Rendered by JS -->
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-stone-100 flex flex-wrap items-center justify-between gap-3">
+            <div id="station1Summary" class="text-sm font-medium text-stone-600">Complete all 6 vocabulary items to check your understanding.</div>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="checkStation1()" class="px-5 py-2.5 rounded-xl bg-terracotta hover:bg-terracottaDark text-white font-semibold text-sm shadow-sm transition">
+                ✓ Check Answers
+              </button>
+              <button type="button" onclick="switchStation(2)" class="px-4 py-2.5 rounded-xl bg-linen hover:bg-stone-200 text-ink font-semibold text-sm transition">
+                Next: Fact File →
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== STATION 2: FACT FILE (3A) ==================== -->
+      <section id="station2" class="station-panel hidden space-y-6">
+        <div class="bg-white rounded-3xl p-5 sm:p-7 border border-stone-200 shadow-sm">
+          <div class="flex flex-wrap items-start justify-between gap-3 border-b border-stone-100 pb-4 mb-5">
+            <div>
+              <span class="inline-block text-xs font-bold uppercase tracking-wider text-tealDeep bg-tealSoft px-2.5 py-1 rounded-full mb-1">Part 3A • Check your understanding</span>
+              <h2 class="font-display text-xl sm:text-2xl font-bold text-ink">Complete the fact file. Use information from Part A.</h2>
+              <p class="text-sm text-stone-600 mt-1">Fill in each row using facts from <strong>Part A</strong> of the reading text. Watch the <strong>live word counter</strong>—it turns red if you exceed <em>max. words</em>!</p>
+            </div>
+            <button type="button" onclick="openReferenceTab('text')" class="text-xs font-semibold px-3 py-2 rounded-xl bg-amber-50 text-amber-900 border border-amber-200 hover:bg-amber-100 transition">
+              📖 Read Part A
+            </button>
+          </div>
+
+          <div class="overflow-hidden rounded-2xl border border-teal-200 shadow-sm">
+            <div class="bg-tealSoft px-4 py-3 grid grid-cols-1 md:grid-cols-12 gap-2 font-bold text-tealDeep text-sm">
+              <div class="md:col-span-4 flex items-center gap-2">
+                <span>📋</span>
+                <span>Fact file: the first farmers</span>
+              </div>
+              <div class="md:col-span-8">Your answers (Live Word-Count Enforcer)</div>
+            </div>
+
+            <div id="factFileRows" class="divide-y divide-stone-200 bg-white">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-stone-100 flex flex-wrap items-center justify-between gap-3">
+            <div id="station2Summary" class="text-sm font-medium text-stone-600">Keep every answer concise and within the word limit.</div>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="checkStation2()" class="px-5 py-2.5 rounded-xl bg-terracotta hover:bg-terracottaDark text-white font-semibold text-sm shadow-sm transition">
+                ✓ Check Fact File
+              </button>
+              <button type="button" onclick="switchStation(3)" class="px-4 py-2.5 rounded-xl bg-linen hover:bg-stone-200 text-ink font-semibold text-sm transition">
+                Next: Timeline & Map →
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== STATION 3: TIMELINE, MIND MAP & HISTORIAN (3B, 3C, 3D) ==================== -->
+      <section id="station3" class="station-panel hidden space-y-6">
+        <!-- 3B Timeline -->
+        <div class="bg-white rounded-3xl p-5 sm:p-7 border border-stone-200 shadow-sm">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-tealDeep bg-tealSoft px-2.5 py-1 rounded-full">Part 3B • Timeline</span>
+              <h3 class="font-display text-xl font-bold text-ink mt-1">B. Complete the timeline (max. 8 words per gap)</h3>
+            </div>
+            <button type="button" onclick="openReferenceTab('text')" class="text-xs font-semibold px-3 py-1.5 rounded-xl bg-amber-50 text-amber-900 border border-amber-200">📖 Check Reading Text</button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="timelineContainer">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- 3C Mind Map -->
+        <div class="bg-white rounded-3xl p-5 sm:p-7 border border-stone-200 shadow-sm">
+          <span class="text-xs font-bold uppercase tracking-wider text-tealDeep bg-tealSoft px-2.5 py-1 rounded-full">Part 3C • Mind Map (Parts B–E)</span>
+          <h3 class="font-display text-xl font-bold text-ink mt-1 mb-1">C. How did farming change people's lives?</h3>
+          <p class="text-sm text-stone-600 mb-4">Write 2 more ideas in each box using information from Parts B–E (<strong>max. 5 words each</strong>).</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="mindMapContainer">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- 3D Be a good historian -->
+        <div class="bg-white rounded-3xl p-5 sm:p-7 border border-stone-200 shadow-sm">
+          <span class="text-xs font-bold uppercase tracking-wider text-terracotta bg-orange-50 px-2.5 py-1 rounded-full">Part 3D • Be a good historian</span>
+          <h3 class="font-display text-xl font-bold text-ink mt-1 mb-1">D. Was farming a turning point? Complete the table.</h3>
+          <p class="text-sm text-stone-600 mb-4">Compare life before and after farming (<strong>max. 5 words</strong> per cell) and complete the summary sentence (<strong>max. 15 words</strong>).</p>
+
+          <div class="overflow-hidden rounded-2xl border border-stone-200 mb-4">
+            <div class="grid grid-cols-2 bg-linen font-bold text-sm text-ink p-3">
+              <div>⏪ Before farming, people...</div>
+              <div>⏩ After farming, people...</div>
+            </div>
+            <div class="divide-y divide-stone-200 text-sm" id="historianTableContainer">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <div class="bg-linen/70 p-4 rounded-2xl border border-stone-200">
+            <label for="turningPointInput" class="block text-sm font-bold text-ink mb-1">
+              Complete the conclusion <span class="text-xs font-normal text-stone-500">(max. 15 words)</span>:
+            </label>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+              <span class="text-sm font-medium text-stone-700 whitespace-nowrap">Farming was a turning point because people</span>
+              <input type="text" id="turningPointInput" oninput="updateWordCounter('turningPointInput', 'turningPointCount', 15)" placeholder="e.g. stopped moving, lived in villages and grew their own food." class="flex-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-tealDeep">
+              <span id="turningPointCount" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-stone-200 text-stone-700 whitespace-nowrap">0/15 words</span>
+            </div>
+            <div id="turningPointFeedback" class="mt-2 text-xs hidden"></div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-stone-100 flex flex-wrap items-center justify-between gap-3">
+            <div id="station3Summary" class="text-sm font-medium text-stone-600">Complete the timeline, mind map, and turning point table.</div>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="checkStation3()" class="px-5 py-2.5 rounded-xl bg-terracotta hover:bg-terracottaDark text-white font-semibold text-sm shadow-sm transition">
+                ✓ Check Station 3
+              </button>
+              <button type="button" onclick="switchStation(4)" class="px-4 py-2.5 rounded-xl bg-linen hover:bg-stone-200 text-ink font-semibold text-sm transition">
+                Next: Past Simple →
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== STATION 4: PAST SIMPLE & STONE AGE FARM (4 & 5A) ==================== -->
+      <section id="station4" class="station-panel hidden space-y-6">
+        <!-- Part 4.2 & 4.3 -->
+        <div class="bg-white rounded-3xl p-5 sm:p-7 border border-stone-200 shadow-sm">
+          <span class="text-xs font-bold uppercase tracking-wider text-tealDeep bg-tealSoft px-2.5 py-1 rounded-full">Part 4 • Language focus: the past simple</span>
+          <h2 class="font-display text-xl sm:text-2xl font-bold text-ink mt-1 mb-1">4.2 Regular or irregular? & 4.3 Grammar Check</h2>
+          <p class="text-sm text-stone-600 mb-5">Classify the past simple verbs from the reading text, write their base (present) forms, and answer the 5 grammar questions.</p>
+
+          <!-- Verb Sorting -->
+          <div class="bg-linen/60 p-4 rounded-2xl border border-stone-200 mb-6">
+            <h4 class="font-bold text-sm text-ink mb-3">A. Regular (-ed) or Irregular? Write the base verb for each past form:</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="verbSortContainer">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <!-- 5 Grammar MCQs -->
+          <h4 class="font-bold text-sm text-ink mb-3">B. Choose the correct answer (Task 3):</h4>
+          <div class="space-y-3.5" id="grammarMcqContainer">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Part 5A: Starting a Stone Age Farm -->
+        <div class="bg-white rounded-3xl p-5 sm:p-7 border border-stone-200 shadow-sm">
+          <span class="text-xs font-bold uppercase tracking-wider text-terracotta bg-orange-50 px-2.5 py-1 rounded-full">Part 5A • Practice</span>
+          <h3 class="font-display text-xl font-bold text-ink mt-1 mb-1">5A. Starting a Stone Age farm</h3>
+          <p class="text-sm text-stone-600 mb-3">Write the <strong>past simple</strong> of the verb in brackets, then choose a farming word from the box. <em>(One word in the box is extra!)</em></p>
+
+          <!-- Word Bank -->
+          <div class="flex flex-wrap gap-2 p-3.5 rounded-2xl bg-tealSoft/60 border border-teal-200 mb-5">
+            <span class="text-xs font-bold text-tealDeep uppercase mr-1 self-center">Word Box:</span>
+            <span class="px-2.5 py-1 rounded-lg bg-white border border-teal-200 text-xs font-semibold">water</span>
+            <span class="px-2.5 py-1 rounded-lg bg-white border border-teal-200 text-xs font-semibold">fertile</span>
+            <span class="px-2.5 py-1 rounded-lg bg-white border border-teal-200 text-xs font-semibold">trees</span>
+            <span class="px-2.5 py-1 rounded-lg bg-white border border-teal-200 text-xs font-semibold">plough</span>
+            <span class="px-2.5 py-1 rounded-lg bg-white border border-teal-200 text-xs font-semibold">wheat</span>
+            <span class="px-2.5 py-1 rounded-lg bg-white border border-teal-200 text-xs font-semibold">barley</span>
+            <span class="px-2.5 py-1 rounded-lg bg-white border border-teal-200 text-xs font-semibold">water channels</span>
+            <span class="px-2.5 py-1 rounded-lg bg-white border border-teal-200 text-xs font-semibold">dam</span>
+            <span class="px-2.5 py-1 rounded-lg bg-white border border-teal-200 text-xs font-semibold">grains</span>
+            <span class="px-2.5 py-1 rounded-lg bg-white border border-teal-200 text-xs font-semibold">wool</span>
+            <span class="px-2.5 py-1 rounded-lg bg-white border border-teal-200 text-xs font-semibold">linen</span>
+            <span class="px-2.5 py-1 rounded-lg bg-white border border-teal-200 text-xs font-semibold">reeds</span>
+          </div>
+
+          <div class="space-y-3 text-sm" id="stoneAgeFarmContainer">
+            <!-- Rendered by JS -->
+          </div>
+
+          <!-- Extra Word Question -->
+          <div class="mt-4 p-4 rounded-2xl bg-amber-50/70 border border-amber-200 flex flex-wrap items-center gap-3">
+            <label for="extraWordInput" class="text-xs sm:text-sm font-bold text-amber-950">Bonus check: One word in the box is extra. Which one?</label>
+            <input type="text" id="extraWordInput" placeholder="type the extra word" class="w-36 px-3 py-1.5 rounded-xl border border-amber-300 bg-white text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-terracotta">
+            <span id="extraWordFeedback" class="text-xs font-semibold hidden"></span>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-stone-100 flex flex-wrap items-center justify-between gap-3">
+            <div id="station4Summary" class="text-sm font-medium text-stone-600">Complete the verb sort, 5 grammar questions, and 9 farm sentences.</div>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="checkStation4()" class="px-5 py-2.5 rounded-xl bg-terracotta hover:bg-terracottaDark text-white font-semibold text-sm shadow-sm transition">
+                ✓ Check Grammar & Practice
+              </button>
+              <button type="button" onclick="switchStation(5)" class="px-4 py-2.5 rounded-xl bg-linen hover:bg-stone-200 text-ink font-semibold text-sm transition">
+                Next: Interview & Wall →
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== STATION 5: ASYNCHRONOUS SPEAKING, WRITING & PEER WALL ==================== -->
+      <section id="station5" class="station-panel hidden space-y-6">
+        <!-- Part 5B Role-Play & Audio Recorder -->
+        <div class="bg-white rounded-3xl p-5 sm:p-7 border border-stone-200 shadow-sm">
+          <div class="border-b border-stone-100 pb-4 mb-5">
+            <span class="inline-block text-xs font-bold uppercase tracking-wider text-terracotta bg-orange-50 px-2.5 py-1 rounded-full mb-1">Part 5B • Asynchronous Speaking & Interaction</span>
+            <h2 class="font-display text-xl sm:text-2xl font-bold text-ink">Interview a Neolithic Farmer & Class Discussion Wall</h2>
+            <p class="text-sm text-stone-600 mt-1">Role-play a farmer from 10,000 years ago: <strong>write your answers</strong>, <strong>record or attach your voice</strong>, and <strong>exchange feedback</strong> with classmates even when you are not online at the same time.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Left: Reporter Questions Guide -->
+            <div class="lg:col-span-5 bg-linen/80 rounded-2xl p-4 border border-stone-200 space-y-2.5">
+              <h3 class="font-bold text-sm text-ink flex items-center gap-2">
+                <span>🎤</span>
+                <span>Reporter Interview Prompts (Part 5B):</span>
+              </h3>
+              <ul class="text-xs space-y-2 text-stone-700">
+                <li class="p-2.5 rounded-xl bg-white border border-stone-200">
+                  <strong class="text-tealDeep">Q1:</strong> Where did you live?<br>
+                  <span class="text-stone-500 italic">Example: I lived in Mesopotamia, near the river.</span>
+                </li>
+                <li class="p-2.5 rounded-xl bg-white border border-stone-200">
+                  <strong class="text-tealDeep">Q2:</strong> What crops did you grow? <span class="text-stone-400">(max. 10 words)</span>
+                </li>
+                <li class="p-2.5 rounded-xl bg-white border border-stone-200">
+                  <strong class="text-tealDeep">Q3:</strong> What animals did you keep? <span class="text-stone-400">(max. 10 words)</span>
+                </li>
+                <li class="p-2.5 rounded-xl bg-white border border-stone-200">
+                  <strong class="text-tealDeep">Q4:</strong> What did you eat? <span class="text-stone-400">(max. 10 words)</span>
+                </li>
+                <li class="p-2.5 rounded-xl bg-white border border-stone-200">
+                  <strong class="text-tealDeep">Q5:</strong> How did you make your clothes? <span class="text-stone-400">(max. 10 words)</span>
+                </li>
+                <li class="p-2.5 rounded-xl bg-white border border-stone-200">
+                  <strong class="text-tealDeep">Q6:</strong> Did you still hunt? <span class="text-stone-400">(Yes, I did...)</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Right: Write & Record Post -->
+            <div class="lg:col-span-7 bg-white rounded-2xl p-4 sm:p-5 border-2 border-dashed border-stone-300 space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <span class="text-sm font-bold text-ink">Post Your Written & Voice Entry</span>
+                <select id="postTopicSelect" class="text-xs font-semibold px-3 py-1.5 rounded-xl bg-tealSoft text-tealDeep border border-teal-200 focus:outline-none">
+                  <option value="5B Farmer Interview">🎤 5B: Farmer Interview Role-Play</option>
+                  <option value="3A Fact File Quiz">📋 3A: Fact File Challenge</option>
+                  <option value="3D Turning Point">💡 3D: Why Farming Was a Turning Point</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="peerPostText" class="block text-xs font-semibold text-stone-600 mb-1">1. Write your Neolithic farmer interview answers in English (past simple):</label>
+                <textarea id="peerPostText" rows="4" oninput="updatePeerPostWordCount()" placeholder="Example: I lived in Mesopotamia near the Tigris River. I grew wheat, barley, peas and lentils. I kept sheep, goats and cows, and I made linen clothes from flax..." class="w-full p-3 rounded-xl border border-stone-300 text-sm focus:outline-none focus:ring-2 focus:ring-tealDeep"></textarea>
+                <div class="flex justify-between text-[11px] text-stone-500 mt-1">
+                  <span>Tip: Keep each answer ≤ 10 words and use past simple verbs (<em>lived, grew, kept, ate, made</em>).</span>
+                  <span id="peerPostWordCount" class="font-semibold">0 words</span>
+                </div>
+              </div>
+
+              <!-- Universal Microphone Recorder + Upload Audio File + Generate Spoken Audio (TTS) -->
+              <div class="bg-orange-50/70 p-3.5 rounded-2xl border border-orange-200 space-y-3">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <div class="text-xs font-bold text-terracotta uppercase tracking-wider">2. Voice Recording (Speaking Practice)</div>
+                    <div class="text-xs text-stone-600" id="recorderStatus">Click Record Voice to speak aloud (up to 60s), upload an audio file, or generate spoken TTS audio.</div>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <button type="button" id="btnStartRecord" onclick="startRecording()" class="px-3.5 py-2 rounded-xl bg-terracotta hover:bg-terracottaDark text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition">
+                      <span>🎙️</span>
+                      <span>Record Voice</span>
+                    </button>
+                    <button type="button" id="btnStopRecord" onclick="stopRecording()" class="hidden px-3.5 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold flex items-center gap-1.5 recording-pulse">
+                      <span>⏹️</span>
+                      <span>Stop (<span id="recordTimer">0s</span>)</span>
+                    </button>
+                    <label class="px-3 py-2 rounded-xl bg-white hover:bg-stone-100 text-stone-700 border border-stone-300 text-xs font-semibold cursor-pointer flex items-center gap-1 transition">
+                      <span>📎</span>
+                      <span>Upload Audio File (.mp3/.m4a/.wav)</span>
+                      <input type="file" id="audioUploadInput" accept="audio/*" onchange="handleAudioFileUpload(event)" class="hidden">
+                    </label>
+                    <button type="button" onclick="attachTtsVoiceNote()" class="px-3 py-2 rounded-xl bg-tealSoft hover:bg-teal-100 text-tealDeep border border-teal-200 text-xs font-semibold flex items-center gap-1 transition">
+                      <span>🔊</span>
+                      <span>Generate Spoken Audio (TTS)</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Audio Preview Player -->
+                <div id="audioPreviewBox" class="hidden pt-3 border-t border-orange-200 flex items-center justify-between gap-3">
+                  <audio id="recordedAudioPreview" controls class="h-9 flex-1"></audio>
+                  <button type="button" onclick="clearRecording()" class="text-xs text-red-600 hover:underline font-semibold">Discard</button>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+                <span class="text-xs text-stone-500">💡 Listen to classmates below and leave written or voice replies!</span>
+                <div class="flex items-center gap-2">
+                  <button type="button" onclick="submitPeerPost()" class="px-5 py-2.5 rounded-xl bg-tealDeep hover:bg-tealDark text-white font-semibold text-sm shadow-sm transition">
+                    📤 Post to Class Wall
+                  </button>
+                  <button type="button" onclick="switchStation(6)" class="px-4 py-2.5 rounded-xl bg-terracotta hover:bg-terracottaDark text-white font-semibold text-sm shadow-sm transition">
+                    Final Step: Submit →
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asynchronous Peer Discussion Board -->
+        <div class="bg-white rounded-3xl p-5 sm:p-7 border border-stone-200 shadow-sm">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+            <div>
+              <h3 class="font-display text-xl font-bold text-ink">💬 Asynchronous Class Discussion Board</h3>
+              <p class="text-xs sm:text-sm text-stone-600">Listen to classmates' voice recordings, read their answers, and reply with written feedback or a spoken voice reply!</p>
+            </div>
+            <span id="peerPostCountBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-tealSoft text-tealDeep border border-teal-200">0 posts</span>
+          </div>
+
+          <div id="peerFeedList" class="space-y-4">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== STATION 6: FINAL SUBMIT ASSIGNMENT ==================== -->
+      <section id="station6" class="station-panel hidden space-y-6">
+        <div class="bg-white rounded-3xl p-5 sm:p-8 border border-stone-200 shadow-sm space-y-6">
+          <div class="border-b border-stone-100 pb-4">
+            <span class="inline-block text-xs font-bold uppercase tracking-wider text-terracotta bg-orange-50 px-2.5 py-1 rounded-full mb-1">Final Step • Assignment Submission</span>
+            <h2 class="font-display text-2xl sm:text-3xl font-bold text-ink">Final Step: Submit Assignment</h2>
+            <p class="text-sm text-stone-600 mt-1">Verify your completion checklist across Stations 1–5 below, add an optional note for your teacher, and click <strong>Submit Final Assignment</strong>.</p>
+          </div>
+
+          <!-- Live Completion Checklist Across Stations 1-5 -->
+          <div id="submissionChecklistBox" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            <!-- Rendered dynamically by JS -->
+          </div>
+
+          <!-- Optional Final Reflection Message to Teacher -->
+          <div class="bg-linen/70 p-4 rounded-2xl border border-stone-200 space-y-2">
+            <label for="studentSubmissionNote" class="block text-xs font-bold text-ink">Optional Reflection Message to Your Teacher:</label>
+            <textarea id="studentSubmissionNote" oninput="saveCurrentDraftState()" rows="2" placeholder="e.g. Which station was easiest or hardest for you? Any questions for your teacher?" class="w-full p-3 rounded-xl border border-stone-300 bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-tealDeep"></textarea>
+          </div>
+
+          <!-- Submission Receipt Banner (Shown after clicking Submit Final Assignment) -->
+          <div id="submissionReceiptCard" class="hidden p-5 rounded-2xl bg-emerald-50 border-2 border-emerald-300 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <span class="text-2xl">✅</span>
+                <div>
+                  <h3 class="font-display text-lg font-bold text-emerald-950">Assignment Submitted ✅</h3>
+                  <p class="text-xs text-emerald-800" id="submissionTimestampText">Submitted just now</p>
+                </div>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-emerald-600 text-white text-xs font-bold">Confirmed</span>
+            </div>
+            <p class="text-xs text-emerald-900 leading-relaxed" id="submissionReceiptSummary">
+              Your answers, word-limit checks, and speaking recordings have been recorded and synced to your teacher's dashboard.
+            </p>
+            <div class="flex flex-wrap items-center gap-2 pt-1">
+              <button type="button" onclick="downloadStudentSubmissionFile()" class="px-4 py-2 rounded-xl bg-tealDeep hover:bg-tealDark text-white text-xs font-bold shadow-sm transition">
+                ⬇ Download Receipt (.json)
+              </button>
+              <button type="button" onclick="reopenSubmissionForEdit()" class="px-4 py-2 rounded-xl bg-white hover:bg-emerald-100 text-emerald-900 border border-emerald-300 text-xs font-bold transition">
+                ✏️ Edit & Resubmit
+              </button>
+            </div>
+          </div>
+
+          <!-- Primary Submit Action Row -->
+          <div id="submitActionRow" class="pt-4 border-t border-stone-100 flex flex-wrap items-center justify-between gap-3">
+            <button type="button" onclick="downloadStudentSubmissionFile()" class="px-4 py-2.5 rounded-xl bg-linen hover:bg-stone-200 text-ink text-xs sm:text-sm font-semibold border border-stone-300 transition">
+              💾 Download Submission File (.json)
+            </button>
+            <button type="button" onclick="submitFinalAssignment()" id="btnFinalSubmitAssignment" class="px-6 py-3 rounded-2xl bg-terracotta hover:bg-terracottaDark text-white font-bold text-sm sm:text-base shadow-md transition flex items-center gap-2">
+              <span>📨</span>
+              <span>Submit Final Assignment</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Right Collapsible Reference Drawer (Reading Passage & Bilingual Glossary) -->
+    <aside id="referenceDrawer" class="w-full lg:w-[410px] shrink-0">
+      <div class="sticky top-28 bg-white rounded-3xl border border-stone-200 shadow-sm overflow-hidden flex flex-col max-h-[calc(100vh-8rem)]">
+        <!-- Drawer Tabs -->
+        <div class="bg-linen px-4 py-3 border-b border-stone-200 flex items-center justify-between">
+          <div class="flex gap-1.5">
+            <button type="button" onclick="openReferenceTab('text')" id="tabRefText" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-tealDeep text-white transition">
+              📖 Reading Passage (Part 2)
+            </button>
+            <button type="button" onclick="openReferenceTab('glossary')" id="tabRefGlossary" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-ink hover:bg-stone-100 border border-stone-200 transition">
+              🔤 Bilingual Glossary
+            </button>
+          </div>
+          <button type="button" onclick="toggleReferenceDrawer()" class="lg:hidden text-xs font-bold text-stone-500 hover:text-ink px-2 py-1">✕ Close</button>
+        </div>
+
+        <!-- Tab 1: Complete Reading Text (Intro + A, B, C, D, E) -->
+        <div id="refTextContent" class="p-4 sm:p-5 overflow-y-auto space-y-4 text-sm leading-relaxed text-stone-700">
+          <div class="p-3.5 rounded-2xl bg-amber-50/80 border border-amber-200 text-xs text-amber-950">
+            <strong>2. Reading: Farming changes the world</strong><br>
+            For a very long time, people did not have farms. They hunted wild animals and gathered fruit, nuts and seeds from wild plants. They moved from place to place to find food. Then, <strong>about 11,000 years ago</strong>, something very important happened: people began to grow their own food. This was the start of the <strong>Neolithic period</strong>. How did farming change the way people lived? What did they eat, and what work did they do?
+          </div>
+
+          <div>
+            <h4 class="font-display font-bold text-base text-tealDeep mb-1">A. Where and when were the first farmers?</h4>
+            <p>The first farmers lived in <strong>Mesopotamia</strong>, a land between two big rivers, the Tigris and the Euphrates. Today, this area is part of <strong>Iraq and Syria</strong>. The land near the rivers was <strong>flat and fertile, and there was a lot of water</strong>, so it was a good place to grow crops.</p>
+            <p class="mt-2">The first farmers planted grain crops such as <strong>wheat and barley</strong>. They also grew <strong>peas, lentils and flax</strong>. They ate the peas and lentils, and they used flax to make cloth for their clothes.</p>
+            <p class="mt-2">At the same time, people began to domesticate animals. Before, they hunted wild sheep, goats, cows and pigs. Now they kept these animals on their farms (<strong>sheep, goats, cows and pigs</strong>), so they had meat and milk all year. However, farmers did not stop hunting completely. They still <strong>hunted wild animals, caught fish and collected fruit and nuts</strong>.</p>
+            <p class="mt-2 text-xs bg-linen p-2.5 rounded-xl border border-stone-200">
+              Farming spread very slowly from Mesopotamia to other places. It reached the <strong>south of Europe about 2,000 years later</strong>.<br>
+              <strong class="text-tealDeep">Note:</strong> <em>BCE = Before the Common Era. We count BCE years backwards, so 9000 BCE is older than 3000 BCE.</em>
+            </p>
+          </div>
+
+          <div>
+            <h4 class="font-display font-bold text-base text-tealDeep mb-1">B. Changing the land</h4>
+            <p>Farmers changed the land around them. They <strong>cut down trees</strong> and <strong>cleared the land</strong> to make fields for their crops. Their animals ate the wild plants and grass. To bring water to the fields, farmers <strong>dug long water channels</strong> from the river. Some farmers <strong>built a dam</strong> across a river to keep and store water. In places with hills, farmers <strong>made terraces</strong>. Terraces are flat steps of land on the side of a hill, so the rain does not wash the soil away. Farmers in Vietnam still grow rice on terraces today.</p>
+          </div>
+
+          <div>
+            <h4 class="font-display font-bold text-base text-tealDeep mb-1">C. Changing food</h4>
+            <p>Because people grew their own grain, they had more food. Farmers ground wheat and barley between two stones to <strong>make flour</strong>, and then they <strong>made bread and porridge</strong>. Their animals gave them <strong>meat and milk</strong>. Food was now easier to find, so families did not need to move any more. They built houses and <strong>lived together in villages</strong>.</p>
+          </div>
+
+          <div>
+            <h4 class="font-display font-bold text-base text-tealDeep mb-1">D. New tools and technology</h4>
+            <p>Farming led to new inventions. Later, farmers <strong>invented the plough</strong>, a tool that breaks up the soil so seeds can grow. Strong animals, such as cows, pulled the plough, so farmers could prepare a big field quickly. Some farmers in Vietnam still use <strong>buffaloes</strong> to plough their rice fields.</p>
+            <p class="mt-2">Stone tools also got better. People <strong>polished their stone axes and blades</strong>, so they were smooth and sharp and cut better. People also learned to <strong>make pottery</strong>. They shaped wet clay into pots and bowls, and then they baked them in a fire to make them hard. They used the pots to store grain, water and milk (clay pots made in about <strong>3200 BCE</strong>). Farmers also <strong>made textiles</strong>: linen from flax, and wool from sheep and goats to make warm clothes.</p>
+          </div>
+
+          <div>
+            <h4 class="font-display font-bold text-base text-tealDeep mb-1">E. New jobs</h4>
+            <p>In a farming village, there were many different jobs. Some people <strong>looked after the animals</strong>, and others <strong>worked in the fields</strong>. Some people became very good at making pots, so <strong>pottery</strong> became their special job. Sometimes a village grew more food than it needed. People <strong>traded</strong> the extra food with other villages for things they did not have, such as tools, special stones or animals.</p>
+          </div>
+        </div>
+
+        <!-- Tab 2: Bilingual Glossary (13 Coursebook Terms) -->
+        <div id="refGlossaryContent" class="hidden p-4 overflow-y-auto">
+          <div class="text-xs text-stone-500 mb-2">Coursebook Glossary — 13 Key Terms (English + Tiếng Việt)</div>
+          <input type="text" id="glossarySearchInput" oninput="filterGlossary()" placeholder="🔍 Search English or Vietnamese term..." class="w-full mb-3 px-3 py-2 rounded-xl border border-stone-300 text-xs focus:outline-none focus:ring-2 focus:ring-tealDeep">
+          <div id="glossaryTableBody" class="divide-y divide-stone-100 text-xs">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- ==================== VIEW 2: TEACHER PROGRESS DASHBOARD ==================== -->
+  <div id="teacherDashboardView" class="hidden flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <!-- Top Banner -->
+    <div class="bg-white rounded-3xl p-5 sm:p-6 border border-stone-200 shadow-sm flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded-full bg-tealSoft text-tealDeep text-xs font-bold uppercase">Live Teacher Progress Dashboard</span>
+          <span class="text-xs text-stone-500">Unit: Farming changes the world (A1–A2)</span>
+        </div>
+        <h2 class="font-display text-2xl font-bold text-ink mt-1">Student Progress, Word-Count Violations & Answer Audit</h2>
+        <p class="text-xs sm:text-sm text-stone-600 mt-0.5">Monitor real-time student submissions from home, filter by class, inspect individual typed answers & audio clips, and export CSV or JSON reports.</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <button type="button" onclick="exportReportCSV()" class="px-4 py-2.5 rounded-xl bg-tealDeep hover:bg-tealDark text-white text-xs sm:text-sm font-bold shadow-sm transition">
+          ⬇ Export CSV Report
+        </button>
+        <button type="button" onclick="exportReportJSON()" class="px-4 py-2.5 rounded-xl bg-ink hover:bg-slate-800 text-white text-xs sm:text-sm font-bold shadow-sm transition">
+          ⬇ Export JSON
+        </button>
+        <button type="button" onclick="toggleAppView()" class="px-4 py-2.5 rounded-xl bg-linen hover:bg-stone-200 text-ink text-xs sm:text-sm font-bold transition">
+          ← Student Workbook
+        </button>
+      </div>
+    </div>
+
+    <!-- KPI Summary Cards -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="teacherKpiCards">
+      <!-- Rendered by JS -->
+    </div>
+
+    <!-- Student-by-Student Tracking Matrix with Class Filter -->
+    <div class="bg-white rounded-3xl border border-stone-200 shadow-sm overflow-hidden">
+      <div class="px-5 py-4 bg-linen/80 border-b border-stone-200 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h3 class="font-bold text-sm sm:text-base text-ink">Live Student Submissions & Diagnostic Matrix</h3>
+          <span class="text-xs text-stone-500">Click <strong>Inspect Answers</strong> on any student row to inspect every typed response & audio clip</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <label class="px-3 py-1.5 rounded-xl bg-white hover:bg-stone-100 text-tealDeep border border-teal-300 text-xs font-bold cursor-pointer transition">
+            📥 Import Student .json
+            <input type="file" accept=".json" onchange="importStudentSubmissionJSON(event)" class="hidden">
+          </label>
+          <input type="text" id="teacherSearchInput" oninput="renderTeacherDashboard()" placeholder="🔍 Search student..." class="px-3 py-1.5 rounded-xl border border-stone-300 bg-white text-xs text-ink focus:outline-none focus:ring-2 focus:ring-tealDeep">
+          <label for="teacherClassFilter" class="sr-only">Filter by Class</label>
+          <select id="teacherClassFilter" onchange="renderTeacherDashboard()" class="px-3 py-1.5 rounded-xl border border-stone-300 bg-white text-xs font-semibold text-ink focus:outline-none focus:ring-2 focus:ring-tealDeep">
+            <option value="ALL">All Classes</option>
+          </select>
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="bg-stone-50 border-b border-stone-200 text-stone-600 text-[11px] uppercase tracking-wider">
+              <th class="py-3 px-4">Student Name & Class</th>
+              <th class="py-3 px-3">Status</th>
+              <th class="py-3 px-3">Completion</th>
+              <th class="py-3 px-3">Accuracy Score</th>
+              <th class="py-3 px-3">Word-Limit Errors</th>
+              <th class="py-3 px-3">Flagged Mistakes</th>
+              <th class="py-3 px-3">Spoken & Peer</th>
+              <th class="py-3 px-4 text-right">Details</th>
+            </tr>
+          </thead>
+          <tbody id="teacherStudentTableBody" class="divide-y divide-stone-100">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Class-Wide Common Mistakes Breakdown -->
+    <div class="bg-white rounded-3xl border border-stone-200 p-5 sm:p-6 shadow-sm">
+      <h3 class="font-bold text-base text-ink mb-1">🔍 Aggregated Class Mistakes (Reteaching Priorities)</h3>
+      <p class="text-xs text-stone-500 mb-4">Automatically compiled from real student submissions across Stations 1–4.</p>
+      <div id="classDiagnosticsList" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TEACHER INSPECT ANSWERS MODAL ==================== -->
+  <div id="inspectStudentModal" class="fixed inset-0 z-50 hidden bg-ink/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-stone-200 overflow-hidden">
+      <div class="px-6 py-4 bg-linen border-b border-stone-200 flex items-center justify-between">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-tealDeep">Student Submission Audit</span>
+          <h3 class="font-display text-xl font-bold text-ink" id="inspectModalTitle">Student Details</h3>
+        </div>
+        <button type="button" onclick="closeInspectModal()" class="w-8 h-8 rounded-full bg-white hover:bg-stone-200 text-stone-600 font-bold flex items-center justify-center">✕</button>
+      </div>
+      <div id="inspectModalBody" class="p-6 overflow-y-auto space-y-4 text-xs">
+        <!-- Rendered dynamically -->
+      </div>
+      <div class="px-6 py-3 bg-stone-50 border-t border-stone-200 flex justify-end">
+        <button type="button" onclick="closeInspectModal()" class="px-5 py-2 rounded-xl bg-tealDeep hover:bg-tealDark text-white text-xs font-bold">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== STUDENT PROFILE EDIT MODAL ==================== -->
+  <div id="studentProfileModal" class="fixed inset-0 z-50 hidden bg-ink/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-stone-200">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="font-display text-xl font-bold text-ink">👤 Student Name & Class</h3>
+        <button type="button" onclick="closeStudentProfileModal()" class="text-stone-400 hover:text-ink font-bold">✕</button>
+      </div>
+      <p class="text-xs text-stone-600 mb-4">Enter your Full Name and Class so your progress and voice recordings sync live to your teacher's dashboard.</p>
+
+      <div class="space-y-3">
+        <div>
+          <label for="modalStudentName" class="block text-xs font-bold text-stone-700 mb-1">Full Name *</label>
+          <input type="text" id="modalStudentName" placeholder="Enter your full name..." class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm focus:outline-none focus:ring-2 focus:ring-tealDeep">
+        </div>
+        <div>
+          <label for="modalStudentClass" class="block text-xs font-bold text-stone-700 mb-1">Class *</label>
+          <input type="text" id="modalStudentClass" placeholder="e.g. 6A1" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm focus:outline-none focus:ring-2 focus:ring-tealDeep">
+        </div>
+      </div>
+
+      <div class="mt-6 flex justify-end gap-2">
+        <button type="button" onclick="closeStudentProfileModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-stone-600 hover:bg-stone-100">Cancel</button>
+        <button type="button" onclick="applyModalStudentProfile()" class="px-5 py-2 rounded-xl bg-tealDeep hover:bg-tealDark text-white text-xs font-bold shadow-sm">Save & Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== REAL-TIME CLOUD SYNC MODULE ==================== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'farming-changes-the-world';
+    let db = null;
+    let auth = null;
+    let cloudReady = false;
+
+    async function initCloudSync() {
+      const statusEl = document.getElementById("syncStatusIndicator");
+      try {
+        if (typeof __firebase_config === 'undefined' || !__firebase_config) {
+          if (statusEl) statusEl.textContent = "Ready (local browser persistence active)";
+          return;
+        }
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const app = initializeApp(firebaseConfig);
+        db = getFirestore(app);
+        auth = getAuth(app);
+
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+          await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+          await signInAnonymously(auth);
+        }
+
+        if (!auth.currentUser) return;
+        cloudReady = true;
+        if (statusEl) statusEl.textContent = "🟢 Connected — Live Cloud Sync & Local Auto-Save Active";
+
+        const progressCol = collection(db, 'artifacts', appId, 'public', 'data', 'student_progress');
+        onSnapshot(progressCol, (snapshot) => {
+          snapshot.forEach((docSnap) => {
+            const data = docSnap.data();
+            if (data && data.name && data.studentClass) {
+              const key = window.getStudentNormalizedKey(data.studentClass, data.name);
+              window.appState.roster[key] = data;
+              try {
+                localStorage.setItem(key, JSON.stringify(data));
+              } catch (e) {}
+            }
+          });
+          if (typeof window.refreshGlobalProgress === 'function') window.refreshGlobalProgress();
+          if (window.isTeacherMode && typeof window.renderTeacherDashboard === 'function') {
+            window.renderTeacherDashboard();
+          }
+        }, (err) => {
+          console.warn("Progress sync listener error:", err);
+        });
+
+        const postsCol = collection(db, 'artifacts', appId, 'public', 'data', 'peer_posts');
+        onSnapshot(postsCol, (snapshot) => {
+          const remotePosts = [];
+          snapshot.forEach((docSnap) => {
+            remotePosts.push(docSnap.data());
+          });
+          remotePosts.sort((a, b) => (b.createdAtMs || 0) - (a.createdAtMs || 0));
+          window.appState.peerPosts = remotePosts;
+          try {
+            localStorage.setItem("fcw_peer_posts_all", JSON.stringify(remotePosts));
+          } catch (e) {}
+          if (typeof window.renderPeerFeed === 'function') window.renderPeerFeed();
+          if (window.isTeacherMode && typeof window.renderTeacherDashboard === 'function') {
+            window.renderTeacherDashboard();
+          }
+        }, (err) => {
+          console.warn("Peer board sync listener error:", err);
+        });
+      } catch (err) {
+        console.warn("Cloud sync fallback:", err);
+        if (statusEl) statusEl.textContent = "Local browser persistence active";
+      }
+    }
+
+    window.syncStudentRecordToCloud = async function(record) {
+      if (!cloudReady || !db || !auth?.currentUser || !record?.name || !record?.studentClass) return;
+      try {
+        const safeId = encodeURIComponent(window.getStudentNormalizedKey(record.studentClass, record.name));
+        const ref = doc(db, 'artifacts', appId, 'public', 'data', 'student_progress', safeId);
+        await setDoc(ref, record, { merge: true });
+      } catch (e) {
+        console.warn("Failed to sync student progress:", e);
+      }
+    };
+
+    window.syncPeerPostToCloud = async function(post) {
+      if (!cloudReady || !db || !auth?.currentUser || !post?.id) return;
+      try {
+        const ref = doc(db, 'artifacts', appId, 'public', 'data', 'peer_posts', post.id);
+        await setDoc(ref, post, { merge: true });
+      } catch (e) {
+        console.warn("Failed to sync peer post:", e);
+      }
+    };
+
+    initCloudSync();
+  </script>
+
+  <!-- ==================== CORE WORKBOOK & DASHBOARD LOGIC ==================== -->
+  <script>
+    // -------------------- AUTHENTIC COURSEBOOK DATA --------------------
+    const GLOSSARY_DATA = [
+      { word: "crop (n)", meaning: "a plant that farmers grow for food", vi: "cây trồng" },
+      { word: "dam (n)", meaning: "a wall across a river that stops and stores water", vi: "đập nước" },
+      { word: "domesticate (v)", meaning: "to make a wild animal tame so it can live with people", vi: "thuần hoá" },
+      { word: "fertile (adj)", meaning: "good for growing plants", vi: "màu mỡ" },
+      { word: "field (n)", meaning: "an area of land where farmers grow crops", vi: "cánh đồng" },
+      { word: "grain (n)", meaning: "the small, hard seeds of wheat, rice or barley", vi: "ngũ cốc, hạt" },
+      { word: "plough (n, v)", meaning: "a farm tool that breaks up the soil before planting", vi: "cái cày; cày" },
+      { word: "pottery (n)", meaning: "pots and bowls made from clay", vi: "đồ gốm" },
+      { word: "terrace (n)", meaning: "a flat step of land on a hill", vi: "ruộng bậc thang" },
+      { word: "textiles (n)", meaning: "cloth, e.g. linen or wool", vi: "hàng dệt, vải" },
+      { word: "trade (v)", meaning: "to give something and get something in return", vi: "trao đổi, buôn bán" },
+      { word: "water channel (n)", meaning: "a long, narrow way for water from a river to a field", vi: "mương dẫn nước" },
+      { word: "BCE", meaning: "Before the Common Era", vi: "trước Công nguyên" }
+    ];
+
+    const VOCAB_QUESTIONS = [
+      {
+        id: "v1",
+        word: "1. farm (v)",
+        answer: "b",
+        explainCorrect: "Correct! 'farm (v)' is a verb meaning to grow plants and keep animals for food.",
+        explainWrong: "Not quite. Look at the part of speech (v = verb). 'farm' means to grow plants and keep animals for food (definition b)."
+      },
+      {
+        id: "v2",
+        word: "2. crop (n)",
+        answer: "a",
+        explainCorrect: "Spot on! A 'crop' is a plant that farmers grow for food, such as rice or wheat.",
+        explainWrong: "Not right. A 'crop' is the whole plant grown for food (definition a: e.g. rice, wheat), whereas 'grain' refers to the small hard seeds."
+      },
+      {
+        id: "v3",
+        word: "3. grain (n)",
+        answer: "f",
+        explainCorrect: "Well done! 'grain' refers to the small, hard seeds of wheat, rice or barley.",
+        explainWrong: "Incorrect. 'grain' means the small, hard seeds of wheat, rice or barley (definition f)."
+      },
+      {
+        id: "v4",
+        word: "4. domesticate (v)",
+        answer: "c",
+        explainCorrect: "Correct! To 'domesticate' means to make a wild animal tame so it can live with people.",
+        explainWrong: "Not quite. 'domesticate (v)' means to make a wild animal tame so it can live with people (definition c)."
+      },
+      {
+        id: "v5",
+        word: "5. fertile (adj)",
+        answer: "d",
+        explainCorrect: "Great job! 'fertile' is an adjective describing land that is good for growing plants.",
+        explainWrong: "Incorrect. 'fertile (adj)' describes soil or land that is good for growing plants (definition d)."
+      },
+      {
+        id: "v6",
+        word: "6. plough (n)",
+        answer: "e",
+        explainCorrect: "Correct! A 'plough' is a farm tool that breaks up the soil before planting.",
+        explainWrong: "Not quite. A 'plough' is a farm tool that breaks up the soil before planting (definition e)."
+      }
+    ];
+
+    const VOCAB_OPTIONS = [
+      { key: "a", text: "a. a plant that farmers grow for food, e.g. rice, wheat" },
+      { key: "b", text: "b. to grow plants and keep animals for food" },
+      { key: "c", text: "c. to make a wild animal tame so it can live with people" },
+      { key: "d", text: "d. good for growing plants" },
+      { key: "e", text: "e. a farm tool that breaks up the soil before planting" },
+      { key: "f", text: "f. the small, hard seeds of wheat, rice or barley" }
+    ];
+
+    const FACT_FILE_ITEMS = [
+      {
+        id: "ff_where",
+        label: "Where?",
+        prefix: "Mesopotamia (today:",
+        suffix: ")",
+        maxWords: 3,
+        placeholder: "e.g. Iraq and Syria",
+        keywords: ["iraq", "syria"],
+        sampleAnswer: "Iraq and Syria",
+        explainWrong: "Check Part A, sentence 2: 'Today, this area is part of Iraq and Syria.' Use max. 3 words and do not repeat 'today'."
+      },
+      {
+        id: "ff_when",
+        label: "When?",
+        prefix: "",
+        suffix: "years ago",
+        maxWords: 3,
+        placeholder: "e.g. about 11,000",
+        keywords: ["11,000", "11000"],
+        sampleAnswer: "about 11,000",
+        explainWrong: "Check the introduction: 'about 11,000 years ago'. Since 'years ago' is already printed after the blank, write only 'about 11,000' (2 words)."
+      },
+      {
+        id: "ff_why",
+        label: "Why was it a good place?",
+        prefix: "",
+        suffix: "",
+        maxWords: 12,
+        placeholder: "e.g. The land was flat and fertile with lots of water.",
+        keywords: ["flat", "fertile", "water"],
+        sampleAnswer: "The land was flat and fertile, and there was water.",
+        explainWrong: "Check Part A: 'The land near the rivers was flat and fertile, and there was a lot of water.' Keep it within 12 words."
+      },
+      {
+        id: "ff_crops",
+        label: "Crops",
+        prefix: "wheat,",
+        suffix: "",
+        maxWords: 6,
+        placeholder: "e.g. barley, peas, lentils and flax",
+        keywords: ["barley", "peas", "lentils", "flax"],
+        sampleAnswer: "barley, peas, lentils and flax",
+        explainWrong: "Check Part A, paragraph 2: Besides 'wheat', they planted 'barley, peas, lentils and flax' (5 words)."
+      },
+      {
+        id: "ff_animals",
+        label: "Animals",
+        prefix: "",
+        suffix: "",
+        maxWords: 5,
+        placeholder: "e.g. sheep, goats, cows and pigs",
+        keywords: ["sheep", "goats", "cows", "pigs"],
+        sampleAnswer: "sheep, goats, cows and pigs",
+        explainWrong: "Check Part A, paragraph 3: They domesticated and kept 'sheep, goats, cows and pigs' (5 words)."
+      },
+      {
+        id: "ff_collected",
+        label: "Food they still collected",
+        prefix: "",
+        suffix: "",
+        maxWords: 6,
+        placeholder: "e.g. wild animals, fish, fruit and nuts",
+        keywords: ["fish", "fruit", "nuts"],
+        sampleAnswer: "wild animals, fish, fruit and nuts",
+        explainWrong: "Check the end of Part A: They still hunted 'wild animals, caught fish and collected fruit and nuts' (6 words)."
+      }
+    ];
+
+    const TIMELINE_ITEMS = [
+      {
+        id: "tl_1",
+        time: "about 11,000 years ago",
+        prefix: "Farming started in",
+        suffix: ".",
+        maxWords: 8,
+        keywords: ["mesopotamia"],
+        sample: "Mesopotamia",
+        hint: "Name the region between the Tigris and Euphrates rivers."
+      },
+      {
+        id: "tl_2",
+        time: "about 2,000 years later",
+        prefix: "",
+        suffix: "",
+        maxWords: 8,
+        keywords: ["europe", "south"],
+        sample: "Farming reached the south of Europe.",
+        hint: "Check the end of Part A: 'It reached the south of Europe about 2,000 years later.'"
+      },
+      {
+        id: "tl_3",
+        time: "about 3200 BCE",
+        prefix: "",
+        suffix: "",
+        maxWords: 8,
+        keywords: ["pot", "pottery", "clay"],
+        sample: "People made clay pots / pottery.",
+        hint: "Check Part D: People made a Neolithic clay pot / pottery in about 3200 BCE."
+      },
+      {
+        id: "tl_4",
+        time: "today ★",
+        prefix: "Some farmers in Vietnam still use",
+        suffix: ".",
+        maxWords: 8,
+        keywords: ["terraces", "buffaloes"],
+        sample: "terraces and buffaloes",
+        hint: "Check Parts B and D: rice terraces and buffaloes (to plough)."
+      }
+    ];
+
+    const MINDMAP_CATEGORIES = [
+      {
+        id: "mm_land",
+        title: "🌳 The land",
+        color: "bg-tealSoft/60 border-teal-200",
+        given: "They cut down trees.",
+        keywords: ["cleared", "channels", "dam", "terraces", "fields", "water"],
+        samples: ["They dug water channels.", "They built a dam / made terraces."]
+      },
+      {
+        id: "mm_food",
+        title: "🍞 Food",
+        color: "bg-orange-50/70 border-orange-200",
+        given: "They made bread.",
+        keywords: ["porridge", "flour", "meat", "milk", "grain"],
+        samples: ["They made porridge.", "They got meat and milk."]
+      },
+      {
+        id: "mm_tools",
+        title: "🛠️ Tools and technology",
+        color: "bg-sky-50/70 border-sky-200",
+        given: "They invented the plough.",
+        keywords: ["stone", "polished", "pottery", "pots", "textiles", "linen", "wool"],
+        samples: ["They polished stone tools.", "They made pottery and textiles."]
+      },
+      {
+        id: "mm_jobs",
+        title: "👩‍🌾 Jobs",
+        color: "bg-purple-50/70 border-purple-200",
+        given: "Some people made pots.",
+        keywords: ["animals", "fields", "traded", "trade", "looked"],
+        samples: ["They looked after animals.", "They traded extra food."]
+      }
+    ];
+
+    const HISTORIAN_ROWS = [
+      {
+        id: "hist_1",
+        beforeFixed: "moved from place to place.",
+        afterFixed: "lived together in villages.",
+        editableSide: null
+      },
+      {
+        id: "hist_2",
+        beforeFixed: "hunted wild animals.",
+        editableSide: "after",
+        placeholder: "After farming... (max. 5 words)",
+        keywords: ["kept", "animals", "domesticated", "farms"],
+        sample: "kept animals on farms."
+      },
+      {
+        id: "hist_3",
+        beforeFixed: "gathered wild seeds.",
+        editableSide: "after",
+        placeholder: "After farming... (max. 5 words)",
+        keywords: ["grew", "crops", "grain", "planted", "food"],
+        sample: "grew their own crops."
+      },
+      {
+        id: "hist_4",
+        afterFixed: "made pots and cloth.",
+        editableSide: "before",
+        placeholder: "Before farming... (max. 5 words)",
+        keywords: ["no", "didn't", "did not", "pots", "cloth", "pottery"],
+        sample: "did not make pots."
+      }
+    ];
+
+    const VERB_SORT_ITEMS = [
+      { past: "hunted", type: "regular", base: "hunt", explain: "'hunted' adds -ed to the regular verb 'hunt'." },
+      { past: "began", type: "irregular", base: "begin", explain: "'began' is the irregular past simple of 'begin' (begin → began)." },
+      { past: "grew", type: "irregular", base: "grow", explain: "'grew' is the irregular past simple of 'grow' (grow → grew)." },
+      { past: "stopped", type: "regular", base: "stop", explain: "'stopped' doubles the final consonant 'p' + -ed from 'stop'." },
+      { past: "dug", type: "irregular", base: "dig", explain: "'dug' is the irregular past simple of 'dig' (dig → dug)." },
+      { past: "traded", type: "regular", base: "trade", explain: "'traded' adds -d to the regular verb 'trade' ending in -e." }
+    ];
+
+    const GRAMMAR_MCQS = [
+      {
+        id: "mcq1",
+        q: "1. The text is mainly in the past simple because...",
+        options: [
+          { k: "A", t: "A. the actions happened and finished in the past." },
+          { k: "B", t: "B. the actions started in the past and are still happening now." },
+          { k: "C", t: "C. the actions happen again and again, like habits." },
+          { k: "D", t: "D. the actions will happen in the future." }
+        ],
+        answer: "A",
+        explain: "Correct! We use the past simple for completed actions in the past (about 11,000 years ago)."
+      },
+      {
+        id: "mcq2",
+        q: "2. \"Today, this area is part of Iraq and Syria.\" The writer uses 'is', not 'was', because...",
+        options: [
+          { k: "A", t: "A. it happened a long time ago." },
+          { k: "B", t: "B. it is true now." },
+          { k: "C", t: "C. it finished in the past." },
+          { k: "D", t: "D. we do not know when it happened." }
+        ],
+        answer: "B",
+        explain: "Spot on! 'Today' signals a present fact that is still true right now, so we use the present simple 'is'."
+      },
+      {
+        id: "mcq3",
+        q: "3. Which words tell us when in the past?",
+        options: [
+          { k: "A", t: "A. every day" },
+          { k: "B", t: "B. now" },
+          { k: "C", t: "C. about 11,000 years ago" },
+          { k: "D", t: "D. next year" }
+        ],
+        answer: "C",
+        explain: "Correct! 'about 11,000 years ago' is a past time expression."
+      },
+      {
+        id: "mcq4",
+        q: "4. \"Farmers did not ______ hunting.\"",
+        options: [
+          { k: "A", t: "A. stopped" },
+          { k: "B", t: "B. stops" },
+          { k: "C", t: "C. stopping" },
+          { k: "D", t: "D. stop" }
+        ],
+        answer: "D",
+        explain: "Well done! After 'did not' (didn't), always use the base form of the verb ('stop'), never '-ed'."
+      },
+      {
+        id: "mcq5",
+        q: "5. Which question is correct?",
+        options: [
+          { k: "A", t: "A. What did farmers grew?" },
+          { k: "B", t: "B. What did farmers grow?" },
+          { k: "C", t: "C. What farmers did grow?" },
+          { k: "D", t: "D. What grew farmers did?" }
+        ],
+        answer: "B",
+        explain: "Correct! Past simple questions follow: Question word + did + subject + base verb ('What did farmers grow?')."
+      }
+    ];
+
+    const STONE_AGE_FARM_ITEMS = [
+      { id: "s5_1", textBefore: "1. First, the farmers", baseVerb: "choose", verbAns: "chose", textMid: "a good place near fresh", nounAns: "water", textAfter: "." },
+      { id: "s5_2", textBefore: "2. The soil", baseVerb: "be", verbAns: "was", textMid: "", nounAns: "fertile", textAfter: "so the crops grew well." },
+      { id: "s5_3", textBefore: "3. They", baseVerb: "cut", verbAns: "cut", textMid: "down the", nounAns: "trees", textAfter: "." },
+      { id: "s5_4", textBefore: "4. Later, they", baseVerb: "use", verbAns: "used", textMid: "a", nounAns: "plough", textAfter: "to prepare the land." },
+      { id: "s5_5", textBefore: "5. They", baseVerb: "plant", verbAns: "planted", textMid: "crops such as", nounAns: "wheat", nounAns2: "barley", textAfter: "." },
+      { id: "s5_6", textBefore: "6. They", baseVerb: "dig", verbAns: "dug", textMid: "", nounAns: "water channels", textAfter: "to bring water to the crops." },
+      { id: "s5_7", textBefore: "7. They", baseVerb: "build", verbAns: "built", textMid: "a", nounAns: "dam", textAfter: "across the river to store water." },
+      { id: "s5_8", textBefore: "8. They", baseVerb: "grind", verbAns: "ground", textMid: "", nounAns: "grains", textAfter: "to make flour for bread." },
+      { id: "s5_9", textBefore: "9. They", baseVerb: "make", verbAns: "made", textMid: "clothes from", nounAns: "wool", nounAns2: "linen", textAfter: "." }
+    ];
+
+    // -------------------- NORMALIZED STORAGE & REAL-TIME SYNC --------------------
+    const SESSION_STORAGE_KEY = "fcw_active_session_v3";
+    const POSTS_STORAGE_KEY = "fcw_peer_posts_all";
+
+    window.getStudentNormalizedKey = function(studentClass, name) {
+      const cleanClass = (studentClass || "").trim().toLowerCase().replace(/[^a-z0-9_-]/g, "_");
+      const cleanName = (name || "").trim().toLowerCase().replace(/[^a-z0-9_-]/g, "_");
+      return `fcw_student_${cleanClass}_${cleanName}`;
+    };
+
+    window.appState = {
+      roleSelected: false,
+      currentRole: "student",
+      currentStudent: { name: "", studentClass: "", studentCode: "" },
+      roster: {},
+      peerPosts: []
+    };
+    window.isTeacherMode = false;
+
+    function loadAllPersistedData() {
+      try {
+        // Scan all fcw_student_<class>_<name> keys in localStorage
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith("fcw_student_")) {
+            const raw = localStorage.getItem(k);
+            if (raw) {
+              const rec = JSON.parse(raw);
+              if (rec && rec.name && rec.studentClass) {
+                const normKey = window.getStudentNormalizedKey(rec.studentClass, rec.name);
+                window.appState.roster[normKey] = rec;
+              }
+            }
+          }
+        }
+        const savedPosts = localStorage.getItem(POSTS_STORAGE_KEY);
+        if (savedPosts) {
+          const parsedPosts = JSON.parse(savedPosts);
+          if (Array.isArray(parsedPosts)) {
+            window.appState.peerPosts = parsedPosts;
+          }
+        }
+        const savedSession = localStorage.getItem(SESSION_STORAGE_KEY);
+        if (savedSession) {
+          const parsedSession = JSON.parse(savedSession);
+          if (parsedSession && parsedSession.name && parsedSession.studentClass) {
+            window.appState.currentStudent = parsedSession;
+          }
+        }
+      } catch (e) {
+        console.warn("LocalStorage read error:", e);
+      }
+    }
+
+    function saveStudentRecordEverywhere(rec) {
+      if (!rec || !rec.name || !rec.studentClass) return;
+      const normKey = window.getStudentNormalizedKey(rec.studentClass, rec.name);
+      window.appState.roster[normKey] = rec;
+      try {
+        localStorage.setItem(normKey, JSON.stringify(rec));
+        localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify({
+          name: rec.name,
+          studentClass: rec.studentClass,
+          studentCode: rec.studentCode || ""
+        }));
+      } catch (e) {
+        console.warn("LocalStorage write warning:", e);
+      }
+      const badge = document.getElementById("autoSaveBadge");
+      if (badge) {
+        badge.textContent = `Saved ✓ ${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+      }
+      if (typeof window.syncStudentRecordToCloud === "function") {
+        window.syncStudentRecordToCloud(rec);
+      }
+    }
+
+    function ensureCurrentStudentRecord() {
+      const name = (window.appState.currentStudent.name || "").trim();
+      const studentClass = (window.appState.currentStudent.studentClass || "").trim();
+      const studentCode = (window.appState.currentStudent.studentCode || "").trim();
+      if (!name || !studentClass) {
+        return {
+          name: "",
+          studentClass: "",
+          studentCode: "",
+          submitted: false,
+          submittedAt: null,
+          submissionNote: "",
+          draftInputs: {},
+          s1: { done: false, score: 0, max: 6, mistakes: [], wordLimitErrors: 0, responses: {} },
+          s2: { done: false, score: 0, max: 6, mistakes: [], wordLimitErrors: 0, responses: {} },
+          s3: { done: false, score: 0, max: 16, mistakes: [], wordLimitErrors: 0, responses: {} },
+          s4: { done: false, score: 0, max: 20, mistakes: [], wordLimitErrors: 0, responses: {} },
+          s5: { done: false, posts: 0, replies: 0 },
+          lastActive: "Not started"
+        };
+      }
+      const normKey = window.getStudentNormalizedKey(studentClass, name);
+      if (!window.appState.roster[normKey]) {
+        window.appState.roster[normKey] = {
+          name,
+          studentClass,
+          studentCode,
+          submitted: false,
+          submittedAt: null,
+          submissionNote: "",
+          draftInputs: {},
+          s1: { done: false, score: 0, max: 6, mistakes: [], wordLimitErrors: 0, responses: {} },
+          s2: { done: false, score: 0, max: 6, mistakes: [], wordLimitErrors: 0, responses: {} },
+          s3: { done: false, score: 0, max: 16, mistakes: [], wordLimitErrors: 0, responses: {} },
+          s4: { done: false, score: 0, max: 20, mistakes: [], wordLimitErrors: 0, responses: {} },
+          s5: { done: false, posts: 0, replies: 0 },
+          lastActive: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+      } else if (studentCode) {
+        window.appState.roster[normKey].studentCode = studentCode;
+      }
+      return window.appState.roster[normKey];
+    }
+
+    function collectAllFormInputs() {
+      const inputs = {};
+      document.querySelectorAll("#studentWorkbookView input[id], #studentWorkbookView select[id], #studentWorkbookView textarea[id]").forEach(el => {
+        if (el.type === "file") return;
+        inputs[el.id] = el.value;
+      });
+      document.querySelectorAll("#studentWorkbookView input[type='radio']:checked").forEach(r => {
+        inputs[`radio_${r.name}`] = r.value;
+      });
+      return inputs;
+    }
+
+    function saveCurrentDraftState() {
+      const rec = ensureCurrentStudentRecord();
+      if (!rec.name || !rec.studentClass) return;
+      rec.draftInputs = collectAllFormInputs();
+      const noteEl = document.getElementById("studentSubmissionNote");
+      if (noteEl) rec.submissionNote = noteEl.value;
+      rec.lastActive = new Date().toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      saveStudentRecordEverywhere(rec);
+    }
+
+    function restoreSavedStudentWork() {
+      const rec = ensureCurrentStudentRecord();
+      if (!rec || !rec.name) return;
+
+      document.querySelectorAll("#studentWorkbookView input[id], #studentWorkbookView select[id], #studentWorkbookView textarea[id]").forEach(el => {
+        if (el.type !== "file") el.value = "";
+      });
+      document.querySelectorAll("#studentWorkbookView input[type='radio']").forEach(r => {
+        r.checked = false;
+      });
+
+      const saved = rec.draftInputs || {};
+      Object.entries(saved).forEach(([key, val]) => {
+        if (key.startsWith("radio_")) {
+          const rName = key.replace("radio_", "");
+          const radio = document.querySelector(`input[name="${rName}"][value="${val}"]`);
+          if (radio) radio.checked = true;
+        } else {
+          const el = document.getElementById(key);
+          if (el && el.type !== "file") {
+            el.value = val;
+            if (typeof el.oninput === "function") {
+              el.oninput();
+            }
+          }
+        }
+      });
+
+      const noteEl = document.getElementById("studentSubmissionNote");
+      if (noteEl) noteEl.value = rec.submissionNote || "";
+
+      updateSubmissionUI();
+      refreshGlobalProgress();
+    }
+
+    // -------------------- ROLE-SELECTION LANDING FLOW --------------------
+    function showRoleWelcomeScreen() {
+      document.getElementById("welcomeStudentName").value = window.appState.currentStudent.name || "";
+      document.getElementById("welcomeStudentClass").value = window.appState.currentStudent.studentClass || "";
+      document.getElementById("welcomeStudentCode").value = window.appState.currentStudent.studentCode || "";
+      document.getElementById("roleWelcomeScreen").classList.remove("hidden");
+    }
+
+    function enterAsStudent() {
+      const nameInput = document.getElementById("welcomeStudentName").value.trim();
+      const classInput = document.getElementById("welcomeStudentClass").value.trim();
+      const codeInput = document.getElementById("welcomeStudentCode").value.trim();
+      if (!nameInput || !classInput) {
+        showToast("Please enter both your Full Name and Class to start!", "⚠️");
+        return;
+      }
+      window.appState.roleSelected = true;
+      window.appState.currentRole = "student";
+      window.appState.currentStudent = { name: nameInput, studentClass: classInput, studentCode: codeInput };
+      const rec = ensureCurrentStudentRecord();
+      saveStudentRecordEverywhere(rec);
+
+      document.getElementById("roleWelcomeScreen").classList.add("hidden");
+      if (window.isTeacherMode) {
+        toggleAppView();
+      }
+      restoreSavedStudentWork();
+      showToast(`Welcome, ${nameInput} (${classInput})! Progress auto-saves as you type.`, "🎒");
+    }
+
+    function enterAsTeacher() {
+      window.appState.roleSelected = true;
+      window.appState.currentRole = "teacher";
+      document.getElementById("roleWelcomeScreen").classList.add("hidden");
+      if (!window.isTeacherMode) {
+        toggleAppView();
+      } else {
+        renderTeacherDashboard();
+      }
+      showToast("Teacher Progress Dashboard opened", "📊");
+    }
+
+    // -------------------- UI HELPERS & NAVIGATION --------------------
+    function showToast(msg, icon = "✨") {
+      const banner = document.getElementById("toastBanner");
+      document.getElementById("toastMsg").textContent = msg;
+      document.getElementById("toastIcon").textContent = icon;
+      banner.classList.remove("hidden");
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => banner.classList.add("hidden"), 3200);
+    }
+
+    function countWords(str) {
+      const cleaned = str.trim().replace(/[.,!?;:()"]/g, " ").trim();
+      if (!cleaned) return 0;
+      return cleaned.split(/\s+/).length;
+    }
+
+    function updateWordCounter(inputId, badgeId, maxWords) {
+      const val = document.getElementById(inputId).value;
+      const wc = countWords(val);
+      const badge = document.getElementById(badgeId);
+      badge.textContent = `${wc}/${maxWords} words`;
+      if (wc > maxWords) {
+        badge.className = "text-xs font-bold px-2.5 py-0.5 rounded-lg bg-red-600 text-white shadow-sm whitespace-nowrap transition";
+      } else if (wc > 0) {
+        badge.className = "text-xs font-bold px-2.5 py-0.5 rounded-lg bg-emerald-100 text-emerald-800 whitespace-nowrap transition";
+      } else {
+        badge.className = "text-xs font-bold px-2.5 py-0.5 rounded-lg bg-stone-200 text-stone-600 whitespace-nowrap transition";
+      }
+    }
+
+    function switchStation(num) {
+      for (let i = 1; i <= 6; i++) {
+        const panel = document.getElementById(`station${i}`);
+        const tab = document.getElementById(`navStation${i}`);
+        if (!panel || !tab) continue;
+        if (i === num) {
+          panel.classList.remove("hidden");
+          tab.classList.remove("border-stone-200");
+          tab.classList.add("border-tealDeep", "bg-tealSoft/30");
+          const labelSpan = tab.querySelector("span");
+          if (labelSpan && i !== 6) labelSpan.classList.replace("text-stone-500", "text-tealDeep");
+        } else {
+          panel.classList.add("hidden");
+          tab.classList.remove("border-tealDeep", "bg-tealSoft/30");
+          tab.classList.add("border-stone-200");
+          const labelSpan = tab.querySelector("span");
+          if (labelSpan && i !== 6) labelSpan.classList.replace("text-tealDeep", "text-stone-500");
+        }
+      }
+      if (num === 6) {
+        updateSubmissionUI();
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function toggleReferenceDrawer() {
+      document.getElementById("referenceDrawer").classList.toggle("hidden");
+    }
+
+    function openReferenceTab(tab) {
+      const drawer = document.getElementById("referenceDrawer");
+      drawer.classList.remove("hidden");
+      const textEl = document.getElementById("refTextContent");
+      const glosEl = document.getElementById("refGlossaryContent");
+      const btnText = document.getElementById("tabRefText");
+      const btnGlos = document.getElementById("tabRefGlossary");
+
+      if (tab === "text") {
+        textEl.classList.remove("hidden");
+        glosEl.classList.add("hidden");
+        btnText.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-tealDeep text-white transition";
+        btnGlos.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-ink hover:bg-stone-100 border border-stone-200 transition";
+      } else {
+        textEl.classList.add("hidden");
+        glosEl.classList.remove("hidden");
+        btnGlos.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-tealDeep text-white transition";
+        btnText.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-ink hover:bg-stone-100 border border-stone-200 transition";
+      }
+    }
+
+    function toggleAppView() {
+      window.isTeacherMode = !window.isTeacherMode;
+      const studentView = document.getElementById("studentWorkbookView");
+      const teacherView = document.getElementById("teacherDashboardView");
+      const progressBar = document.getElementById("studentProgressSubbar");
+      const studentBadge = document.getElementById("headerStudentBadge");
+      const btnRef = document.getElementById("btnToggleRef");
+      const btnMode = document.getElementById("btnToggleMode");
+      const modeLabel = document.getElementById("modeToggleLabel");
+      const modeIcon = document.getElementById("modeToggleIcon");
+
+      if (window.isTeacherMode) {
+        renderTeacherDashboard();
+        studentView.classList.add("hidden");
+        progressBar.classList.add("hidden");
+        studentBadge.classList.add("hidden");
+        btnRef.classList.add("hidden");
+        teacherView.classList.remove("hidden");
+        btnMode.className = "px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-terracotta text-white hover:bg-terracottaDark flex items-center gap-1.5 shadow-sm transition";
+        modeIcon.textContent = "📘";
+        modeLabel.textContent = "Workbook View";
+      } else {
+        teacherView.classList.add("hidden");
+        studentView.classList.remove("hidden");
+        progressBar.classList.remove("hidden");
+        studentBadge.classList.remove("hidden");
+        btnRef.classList.remove("hidden");
+        btnMode.className = "px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-tealDeep text-white hover:bg-tealDark flex items-center gap-1.5 shadow-sm transition";
+        modeIcon.textContent = "📊";
+        modeLabel.textContent = "Teacher Dashboard";
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // -------------------- RENDER GLOSSARY & STATIONS --------------------
+    function renderGlossary(filter = "") {
+      const container = document.getElementById("glossaryTableBody");
+      const q = filter.toLowerCase().trim();
+      const filtered = GLOSSARY_DATA.filter(item =>
+        item.word.toLowerCase().includes(q) ||
+        item.meaning.toLowerCase().includes(q) ||
+        item.vi.toLowerCase().includes(q)
+      );
+      container.innerHTML = filtered.map(item => `
+        <div class="py-2.5 flex flex-col gap-0.5">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-ink">${item.word}</span>
+            <span class="px-2 py-0.5 rounded-md bg-tealSoft text-tealDeep font-semibold">${item.vi}</span>
+          </div>
+          <div class="text-stone-600">${item.meaning}</div>
+        </div>
+      `).join("");
+    }
+
+    function filterGlossary() {
+      renderGlossary(document.getElementById("glossarySearchInput").value);
+    }
+
+    function renderStation1() {
+      const container = document.getElementById("vocabList");
+      container.innerHTML = VOCAB_QUESTIONS.map(q => `
+        <div class="p-4 rounded-2xl bg-linen/50 border border-stone-200 transition" id="card_${q.id}">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="font-bold text-ink text-base min-w-[165px]">${q.word}</div>
+            <select id="sel_${q.id}" class="flex-1 px-3.5 py-2.5 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-tealDeep">
+              <option value="">-- Choose the matching definition --</option>
+              ${VOCAB_OPTIONS.map(opt => `<option value="${opt.key}">${opt.text}</option>`).join("")}
+            </select>
+          </div>
+          <div id="fb_${q.id}" class="hidden mt-2.5 text-xs p-2.5 rounded-xl"></div>
+        </div>
+      `).join("");
+    }
+
+    function checkStation1() {
+      let score = 0;
+      const mistakes = [];
+      const responses = {};
+
+      VOCAB_QUESTIONS.forEach(q => {
+        const val = document.getElementById(`sel_${q.id}`).value;
+        const fb = document.getElementById(`fb_${q.id}`);
+        const card = document.getElementById(`card_${q.id}`);
+        fb.classList.remove("hidden");
+        responses[q.word] = val || "(blank)";
+
+        if (val === q.answer) {
+          score++;
+          card.className = "p-4 rounded-2xl bg-emerald-50/70 border border-emerald-300 transition";
+          fb.className = "mt-2.5 text-xs p-2.5 rounded-xl bg-emerald-100/80 text-emerald-950 font-medium";
+          fb.innerHTML = `✅ ${q.explainCorrect}`;
+        } else {
+          mistakes.push(`${q.word}: selected '${val || "blank"}' (correct: '${q.answer}')`);
+          card.className = "p-4 rounded-2xl bg-red-50/70 border border-red-300 transition";
+          fb.className = "mt-2.5 text-xs p-2.5 rounded-xl bg-red-100/80 text-red-950 font-medium";
+          fb.innerHTML = `❌ ${q.explainWrong}`;
+        }
+      });
+
+      const rec = ensureCurrentStudentRecord();
+      rec.s1 = { done: true, score, max: 6, mistakes, wordLimitErrors: 0, responses };
+      rec.draftInputs = collectAllFormInputs();
+      saveStudentRecordEverywhere(rec);
+      refreshGlobalProgress();
+
+      document.getElementById("station1Summary").innerHTML =
+        `Station 1 Score: <strong class="text-terracotta">${score}/6 correct</strong>. ${score === 6 ? "Excellent work! You mastered all 6 keywords." : "Review the explanations above and try again."}`;
+      showToast(`Station 1 checked: ${score}/6 points!`, score === 6 ? "🎉" : "📝");
+    }
+
+    function renderStation2() {
+      const container = document.getElementById("factFileRows");
+      container.innerHTML = FACT_FILE_ITEMS.map(item => `
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-3 p-4 items-start bg-white hover:bg-tealSoft/10 transition" id="row_${item.id}">
+          <div class="md:col-span-4 bg-tealSoft/70 p-3 rounded-xl font-bold text-ink text-sm">
+            ${item.label}
+          </div>
+          <div class="md:col-span-8 space-y-1.5">
+            <div class="flex flex-wrap items-center gap-2">
+              ${item.prefix ? `<span class="text-sm font-medium text-stone-700">${item.prefix}</span>` : ""}
+              <input type="text" id="inp_${item.id}"
+                oninput="updateWordCounter('inp_${item.id}', 'cnt_${item.id}', ${item.maxWords})"
+                placeholder="${item.placeholder}"
+                class="flex-1 min-w-[180px] px-3 py-2 rounded-xl border border-stone-300 text-sm focus:outline-none focus:ring-2 focus:ring-tealDeep">
+              ${item.suffix ? `<span class="text-sm font-medium text-stone-700">${item.suffix}</span>` : ""}
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-stone-500 italic">✏️ max. ${item.maxWords} words</span>
+              <span id="cnt_${item.id}" class="text-xs font-bold px-2.5 py-0.5 rounded-lg bg-stone-200 text-stone-600">0/${item.maxWords} words</span>
+            </div>
+            <div id="fb_${item.id}" class="hidden text-xs p-2.5 rounded-xl mt-1"></div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function checkStation2() {
+      let score = 0;
+      let wordLimitErrors = 0;
+      const mistakes = [];
+      const responses = {};
+
+      FACT_FILE_ITEMS.forEach(item => {
+        const raw = document.getElementById(`inp_${item.id}`).value.trim();
+        const lower = raw.toLowerCase();
+        const wc = countWords(raw);
+        const fb = document.getElementById(`fb_${item.id}`);
+        fb.classList.remove("hidden");
+        responses[item.label] = raw ? `${raw} (${wc}/${item.maxWords}w)` : "(blank)";
+
+        if (!raw) {
+          mistakes.push(`${item.label}: left blank`);
+          fb.className = "text-xs p-2.5 rounded-xl mt-1 bg-amber-100 text-amber-950 font-medium";
+          fb.innerHTML = `⚠️ This field is empty. Check Part A and write up to ${item.maxWords} words.`;
+          return;
+        }
+
+        if (wc > item.maxWords) {
+          wordLimitErrors++;
+          mistakes.push(`${item.label}: exceeded word limit (${wc}/${item.maxWords} words)`);
+          fb.className = "text-xs p-2.5 rounded-xl mt-1 bg-red-100 text-red-950 font-medium";
+          fb.innerHTML = `❌ <strong>Word-Limit Error:</strong> You wrote <strong>${wc} words</strong> (maximum allowed is <strong>${item.maxWords} words</strong>). Shorten your answer! Model: <em>"${item.sampleAnswer}"</em>.`;
+          return;
+        }
+
+        if (item.id === "ff_when" && lower.includes("years ago")) {
+          mistakes.push("When?: repeated 'years ago'");
+          fb.className = "text-xs p-2.5 rounded-xl mt-1 bg-red-100 text-red-950 font-medium";
+          fb.innerHTML = `❌ The words <em>"years ago"</em> are already printed after the blank! Write only <strong>"about 11,000"</strong>.`;
+          return;
+        }
+
+        if (item.id === "ff_crops" && lower.includes("wheat")) {
+          mistakes.push("Crops: repeated 'wheat'");
+          fb.className = "text-xs p-2.5 rounded-xl mt-1 bg-red-100 text-red-950 font-medium";
+          fb.innerHTML = `❌ <em>"wheat,"</em> is already given before the blank! List only the other crops: <strong>"barley, peas, lentils and flax"</strong>.`;
+          return;
+        }
+
+        const matchedCount = item.keywords.filter(kw => lower.includes(kw)).length;
+        const requiredMatches = item.id === "ff_where" ? 2 : 1;
+
+        if (matchedCount >= requiredMatches) {
+          score++;
+          fb.className = "text-xs p-2.5 rounded-xl mt-1 bg-emerald-100 text-emerald-950 font-medium";
+          fb.innerHTML = `✅ Correct (${wc}/${item.maxWords} words)! Model answer: <em>"${item.sampleAnswer}"</em>.`;
+        } else {
+          mistakes.push(`${item.label}: missing key facts ("${raw}")`);
+          fb.className = "text-xs p-2.5 rounded-xl mt-1 bg-red-100 text-red-950 font-medium";
+          fb.innerHTML = `❌ ${item.explainWrong} <br>👉 Model answer: <strong>${item.sampleAnswer}</strong>.`;
+        }
+      });
+
+      const rec = ensureCurrentStudentRecord();
+      rec.s2 = { done: true, score, max: 6, mistakes, wordLimitErrors, responses };
+      rec.draftInputs = collectAllFormInputs();
+      saveStudentRecordEverywhere(rec);
+      refreshGlobalProgress();
+
+      document.getElementById("station2Summary").innerHTML =
+        `Fact File Score: <strong class="text-terracotta">${score}/6 correct</strong> (${wordLimitErrors} word-limit error${wordLimitErrors === 1 ? "" : "s"}).`;
+      showToast(`Fact File checked: ${score}/6!`, score === 6 ? "🌟" : "📋");
+    }
+
+    function renderStation3() {
+      const tlContainer = document.getElementById("timelineContainer");
+      tlContainer.innerHTML = TIMELINE_ITEMS.map(item => `
+        <div class="p-4 rounded-2xl bg-tealSoft/40 border border-teal-200 flex flex-col justify-between gap-2">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-tealDeep bg-white px-2.5 py-1 rounded-lg border border-teal-200 inline-block mb-2">${item.time}</div>
+            <p class="text-xs text-stone-700 font-medium mb-1">${item.prefix || "Write the historical event:"}</p>
+            <input type="text" id="inp_${item.id}"
+              oninput="updateWordCounter('inp_${item.id}', 'cnt_${item.id}', ${item.maxWords})"
+              placeholder="max. ${item.maxWords} words"
+              class="w-full px-3 py-2 rounded-xl border border-stone-300 bg-white text-xs focus:outline-none focus:ring-2 focus:ring-tealDeep">
+            ${item.suffix ? `<span class="text-xs text-stone-600">${item.suffix}</span>` : ""}
+          </div>
+          <div>
+            <div class="flex justify-between items-center mt-1">
+              <span class="text-[11px] text-stone-500">max. 8 words</span>
+              <span id="cnt_${item.id}" class="text-[11px] font-bold px-2 py-0.5 rounded bg-stone-200 text-stone-600">0/8 words</span>
+            </div>
+            <div id="fb_${item.id}" class="hidden text-[11px] p-2 rounded-xl mt-1.5"></div>
+          </div>
+        </div>
+      `).join("");
+
+      const mmContainer = document.getElementById("mindMapContainer");
+      mmContainer.innerHTML = MINDMAP_CATEGORIES.map(cat => `
+        <div class="p-4 rounded-2xl border ${cat.color} space-y-2.5">
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-sm text-ink">${cat.title}</h4>
+            <span class="text-[11px] text-stone-500 italic">max. 5 words each</span>
+          </div>
+          <div class="text-xs text-stone-700 italic bg-white/80 px-3 py-1.5 rounded-lg">• ${cat.given}</div>
+          <div class="flex gap-1.5 items-center">
+            <input type="text" id="inp_${cat.id}_1" oninput="updateWordCounter('inp_${cat.id}_1', 'cnt_${cat.id}_1', 5)" placeholder="Idea 2 (max. 5 words)" class="flex-1 px-2.5 py-1.5 rounded-xl border border-stone-300 bg-white text-xs">
+            <span id="cnt_${cat.id}_1" class="text-[11px] font-bold px-2 py-0.5 rounded bg-stone-200 text-stone-600">0/5</span>
+          </div>
+          <div class="flex gap-1.5 items-center">
+            <input type="text" id="inp_${cat.id}_2" oninput="updateWordCounter('inp_${cat.id}_2', 'cnt_${cat.id}_2', 5)" placeholder="Idea 3 (max. 5 words)" class="flex-1 px-2.5 py-1.5 rounded-xl border border-stone-300 bg-white text-xs">
+            <span id="cnt_${cat.id}_2" class="text-[11px] font-bold px-2 py-0.5 rounded bg-stone-200 text-stone-600">0/5</span>
+          </div>
+          <div id="fb_${cat.id}" class="hidden text-xs p-2 rounded-xl"></div>
+        </div>
+      `).join("");
+
+      const histContainer = document.getElementById("historianTableContainer");
+      histContainer.innerHTML = HISTORIAN_ROWS.map(r => {
+        if (!r.editableSide) {
+          return `
+            <div class="grid grid-cols-2 p-3 bg-white">
+              <div class="pr-2 text-stone-700">${r.beforeFixed}</div>
+              <div class="pl-2 text-stone-700 border-l border-stone-200">${r.afterFixed}</div>
+            </div>
+          `;
+        }
+        const inputHtml = `
+          <div class="space-y-1">
+            <div class="flex items-center gap-1.5">
+              <input type="text" id="inp_${r.id}" oninput="updateWordCounter('inp_${r.id}', 'cnt_${r.id}', 5)" placeholder="${r.placeholder}" class="flex-1 px-2.5 py-1.5 rounded-xl border border-stone-300 text-xs">
+              <span id="cnt_${r.id}" class="text-[11px] font-bold px-2 py-0.5 rounded bg-stone-200 text-stone-600">0/5</span>
+            </div>
+            <div id="fb_${r.id}" class="hidden text-[11px] p-1.5 rounded-lg"></div>
+          </div>
+        `;
+        return `
+          <div class="grid grid-cols-2 p-3 bg-white items-start">
+            <div class="pr-2">${r.editableSide === "before" ? inputHtml : `<span class="text-stone-700">${r.beforeFixed}</span>`}</div>
+            <div class="pl-2 border-l border-stone-200">${r.editableSide === "after" ? inputHtml : `<span class="text-stone-700">${r.afterFixed}</span>`}</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function checkStation3() {
+      let score = 0;
+      let wordLimitErrors = 0;
+      const mistakes = [];
+      const responses = {};
+
+      TIMELINE_ITEMS.forEach(item => {
+        const val = document.getElementById(`inp_${item.id}`).value.trim();
+        const wc = countWords(val);
+        const fb = document.getElementById(`fb_${item.id}`);
+        fb.classList.remove("hidden");
+        responses[`Timeline (${item.time})`] = val ? `${val} (${wc}/${item.maxWords}w)` : "(blank)";
+
+        if (wc > item.maxWords) wordLimitErrors++;
+
+        if (!val || wc > item.maxWords) {
+          mistakes.push(`Timeline (${item.time}): ${!val ? "blank" : `exceeded 8 words (${wc}/8)`}`);
+          fb.className = "text-[11px] p-2 rounded-xl mt-1.5 bg-red-100 text-red-950";
+          fb.innerHTML = `❌ ${!val ? "Blank." : `Exceeded ${item.maxWords} words (${wc} words).`} Model: <strong>${item.sample}</strong>`;
+        } else if (item.keywords.some(k => val.toLowerCase().includes(k))) {
+          score++;
+          fb.className = "text-[11px] p-2 rounded-xl mt-1.5 bg-emerald-100 text-emerald-950";
+          fb.innerHTML = `✅ Correct! Model: <em>${item.sample}</em>`;
+        } else {
+          mistakes.push(`Timeline (${item.time}): inaccurate fact`);
+          fb.className = "text-[11px] p-2 rounded-xl mt-1.5 bg-red-100 text-red-950";
+          fb.innerHTML = `❌ ${item.hint} Model: <strong>${item.sample}</strong>`;
+        }
+      });
+
+      MINDMAP_CATEGORIES.forEach(cat => {
+        const v1 = document.getElementById(`inp_${cat.id}_1`).value.trim();
+        const v2 = document.getElementById(`inp_${cat.id}_2`).value.trim();
+        const fb = document.getElementById(`fb_${cat.id}`);
+        fb.classList.remove("hidden");
+        responses[`Mind Map (${cat.title})`] = `${v1 || "—"} | ${v2 || "—"}`;
+
+        let catPts = 0;
+        [v1, v2].forEach((v, idx) => {
+          const wc = countWords(v);
+          if (wc > 5) wordLimitErrors++;
+          if (v && wc <= 5 && cat.keywords.some(k => v.toLowerCase().includes(k))) {
+            catPts++;
+          } else {
+            mistakes.push(`Mind Map ${cat.title} (idea ${idx + 2}): ${!v ? "blank" : wc > 5 ? `over 5 words (${wc}/5)` : "missing text idea"}`);
+          }
+        });
+        score += catPts;
+        if (catPts === 2) {
+          fb.className = "text-xs p-2 rounded-xl bg-emerald-100 text-emerald-950";
+          fb.innerHTML = `✅ Great (2/2 ideas within 5 words)! Models: <em>${cat.samples.join(" / ")}</em>`;
+        } else {
+          fb.className = "text-xs p-2 rounded-xl bg-amber-100 text-amber-950";
+          fb.innerHTML = `⚠️ Scored ${catPts}/2. Keep each bullet ≤ 5 words. Models: <strong>${cat.samples.join(" • ")}</strong>`;
+        }
+      });
+
+      HISTORIAN_ROWS.filter(r => r.editableSide).forEach(r => {
+        const val = document.getElementById(`inp_${r.id}`).value.trim();
+        const wc = countWords(val);
+        const fb = document.getElementById(`fb_${r.id}`);
+        fb.classList.remove("hidden");
+        responses[`3D Historian (${r.id})`] = val ? `${val} (${wc}/5w)` : "(blank)";
+        if (wc > 5) wordLimitErrors++;
+
+        if (val && wc <= 5 && r.keywords.some(k => val.toLowerCase().includes(k))) {
+          score++;
+          fb.className = "text-[11px] p-1.5 rounded-lg bg-emerald-100 text-emerald-950";
+          fb.innerHTML = `✅ Valid (${wc}/5 words)! Model: <em>${r.sample}</em>`;
+        } else {
+          mistakes.push(`3D Historian (${r.id}): ${wc > 5 ? "over 5 words" : "incomplete"}`);
+          fb.className = "text-[11px] p-1.5 rounded-lg bg-red-100 text-red-950";
+          fb.innerHTML = `❌ Max 5 words. Model: <strong>${r.sample}</strong>`;
+        }
+      });
+
+      const tpVal = document.getElementById("turningPointInput").value.trim();
+      const tpWc = countWords(tpVal);
+      const tpFb = document.getElementById("turningPointFeedback");
+      tpFb.classList.remove("hidden");
+      responses["Turning Point Conclusion"] = tpVal ? `${tpVal} (${tpWc}/15w)` : "(blank)";
+      if (tpWc > 15) wordLimitErrors++;
+
+      if (tpVal && tpWc <= 15 && ["village", "villages", "food", "moving", "crops", "farms"].some(k => tpVal.toLowerCase().includes(k))) {
+        score++;
+        tpFb.className = "mt-2 text-xs p-2.5 rounded-xl bg-emerald-100 text-emerald-950 font-medium";
+        tpFb.innerHTML = `✅ Strong historical conclusion (${tpWc}/15 words)! Model: <em>"...stopped moving, lived in villages and grew their own food."</em>`;
+      } else {
+        mistakes.push("3D Turning Point: missing core reason or over 15 words");
+        tpFb.className = "mt-2 text-xs p-2.5 rounded-xl bg-red-100 text-red-950 font-medium";
+        tpFb.innerHTML = `❌ Explain why life changed completely (stopped moving, lived in villages, grew food) in max. 15 words. Model: <strong>"stopped moving, lived in villages and grew their own food."</strong>`;
+      }
+
+      const rec = ensureCurrentStudentRecord();
+      rec.s3 = { done: true, score, max: 16, mistakes, wordLimitErrors, responses };
+      rec.draftInputs = collectAllFormInputs();
+      saveStudentRecordEverywhere(rec);
+      refreshGlobalProgress();
+
+      document.getElementById("station3Summary").innerHTML = `Station 3 Score: <strong class="text-terracotta">${score}/16 points</strong>.`;
+      showToast(`Station 3 checked: ${score}/16 points!`, "🗺️");
+    }
+
+    function renderStation4() {
+      const vsContainer = document.getElementById("verbSortContainer");
+      vsContainer.innerHTML = VERB_SORT_ITEMS.map((v, i) => `
+        <div class="p-3 rounded-xl bg-white border border-stone-200 space-y-2" id="vcard_${i}">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-tealDeep text-sm">${v.past}</span>
+            <select id="vtype_${i}" class="text-xs px-2 py-1 rounded-lg border border-stone-300 bg-linen/60">
+              <option value="">Type?</option>
+              <option value="regular">Regular (-ed)</option>
+              <option value="irregular">Irregular</option>
+            </select>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="text-xs text-stone-500">Base verb:</span>
+            <input type="text" id="vbase_${i}" placeholder="present form" class="flex-1 px-2 py-1 rounded-lg border border-stone-300 text-xs">
+          </div>
+          <div id="vfb_${i}" class="hidden text-[11px] p-1.5 rounded-lg"></div>
+        </div>
+      `).join("");
+
+      const mcqContainer = document.getElementById("grammarMcqContainer");
+      mcqContainer.innerHTML = GRAMMAR_MCQS.map(m => `
+        <div class="p-4 rounded-2xl bg-linen/50 border border-stone-200" id="mcard_${m.id}">
+          <div class="font-semibold text-sm text-ink mb-2.5">${m.q}</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            ${m.options.map(o => `
+              <label class="flex items-center gap-2 p-2.5 rounded-xl bg-white border border-stone-200 hover:border-tealDeep cursor-pointer text-xs">
+                <input type="radio" name="mcq_${m.id}" value="${o.k}" class="accent-tealDeep">
+                <span>${o.t}</span>
+              </label>
+            `).join("")}
+          </div>
+          <div id="mfb_${m.id}" class="hidden mt-2 text-xs p-2.5 rounded-xl"></div>
+        </div>
+      `).join("");
+
+      const s5Container = document.getElementById("stoneAgeFarmContainer");
+      s5Container.innerHTML = STONE_AGE_FARM_ITEMS.map(item => `
+        <div class="p-3.5 rounded-2xl bg-linen/50 border border-stone-200 space-y-2" id="s5card_${item.id}">
+          <div class="flex flex-wrap items-center gap-1.5 leading-relaxed">
+            <span>${item.textBefore}</span>
+            <input type="text" id="verb_${item.id}" placeholder="(${item.baseVerb})" class="w-24 px-2.5 py-1 rounded-lg border border-stone-300 bg-white text-xs font-semibold text-terracotta focus:outline-none focus:ring-2 focus:ring-terracotta">
+            ${item.textMid ? `<span>${item.textMid}</span>` : ""}
+            <input type="text" id="noun_${item.id}" placeholder="word" class="w-32 px-2.5 py-1 rounded-lg border border-stone-300 bg-white text-xs font-semibold text-tealDeep focus:outline-none focus:ring-2 focus:ring-tealDeep">
+            ${item.nounAns2 ? `<span>and</span> <input type="text" id="noun2_${item.id}" placeholder="word 2" class="w-28 px-2.5 py-1 rounded-lg border border-stone-300 bg-white text-xs font-semibold text-tealDeep focus:outline-none focus:ring-2 focus:ring-tealDeep">` : ""}
+            <span>${item.textAfter}</span>
+          </div>
+          <div id="s5fb_${item.id}" class="hidden text-xs p-2 rounded-xl"></div>
+        </div>
+      `).join("");
+    }
+
+    function checkStation4() {
+      let score = 0;
+      const mistakes = [];
+      const responses = {};
+
+      VERB_SORT_ITEMS.forEach((v, i) => {
+        const t = document.getElementById(`vtype_${i}`).value;
+        const b = document.getElementById(`vbase_${i}`).value.trim().toLowerCase();
+        const fb = document.getElementById(`vfb_${i}`);
+        fb.classList.remove("hidden");
+        responses[`Verb (${v.past})`] = `${t || "—"} / ${b || "—"}`;
+
+        if (t === v.type && b === v.base) {
+          score++;
+          fb.className = "text-[11px] p-1.5 rounded-lg bg-emerald-100 text-emerald-950";
+          fb.innerHTML = `✅ ${v.explain}`;
+        } else {
+          mistakes.push(`Verb '${v.past}': expected ${v.type} / base '${v.base}'`);
+          fb.className = "text-[11px] p-1.5 rounded-lg bg-red-100 text-red-950";
+          fb.innerHTML = `❌ ${v.explain}`;
+        }
+      });
+
+      GRAMMAR_MCQS.forEach(m => {
+        const checked = document.querySelector(`input[name="mcq_${m.id}"]:checked`);
+        const val = checked ? checked.value : "";
+        const fb = document.getElementById(`mfb_${m.id}`);
+        fb.classList.remove("hidden");
+        responses[`4.3 ${m.id.toUpperCase()}`] = val || "(blank)";
+
+        if (val === m.answer) {
+          score++;
+          fb.className = "mt-2 text-xs p-2.5 rounded-xl bg-emerald-100 text-emerald-950 font-medium";
+          fb.innerHTML = `✅ ${m.explain}`;
+        } else {
+          mistakes.push(`Grammar ${m.id.toUpperCase()}: selected '${val || "blank"}' (correct: '${m.answer}')`);
+          fb.className = "mt-2 text-xs p-2.5 rounded-xl bg-red-100 text-red-950 font-medium";
+          fb.innerHTML = `❌ Not quite. ${m.explain}`;
+        }
+      });
+
+      STONE_AGE_FARM_ITEMS.forEach(item => {
+        const vVal = document.getElementById(`verb_${item.id}`).value.trim().toLowerCase();
+        const nVal = document.getElementById(`noun_${item.id}`).value.trim().toLowerCase();
+        const nVal2 = item.nounAns2 ? document.getElementById(`noun2_${item.id}`).value.trim().toLowerCase() : "";
+        const fb = document.getElementById(`s5fb_${item.id}`);
+        fb.classList.remove("hidden");
+
+        const verbOk = vVal === item.verbAns;
+        let nounOk = false;
+        if (item.nounAns2) {
+          const pair = [nVal, nVal2].sort().join(",");
+          const targetPair = [item.nounAns, item.nounAns2].sort().join(",");
+          nounOk = pair === targetPair;
+        } else {
+          nounOk = nVal === item.nounAns;
+        }
+
+        responses[`5A #${item.id.split("_")[1]}`] = `${vVal || "—"} | ${nVal || "—"}${item.nounAns2 ? " & " + (nVal2 || "—") : ""}`;
+
+        if (verbOk && nounOk) {
+          score++;
+          fb.className = "text-xs p-2 rounded-xl bg-emerald-100 text-emerald-950 font-medium";
+          fb.innerHTML = `✅ Correct! <strong>${item.verbAns}</strong> + <strong>${item.nounAns}${item.nounAns2 ? " and " + item.nounAns2 : ""}</strong>.`;
+        } else {
+          mistakes.push(`5A Sentence ${item.id.split("_")[1]}: expected '${item.verbAns}' + '${item.nounAns}${item.nounAns2 ? "/" + item.nounAns2 : ""}'`);
+          fb.className = "text-xs p-2 rounded-xl bg-red-100 text-red-950 font-medium";
+          fb.innerHTML = `❌ ${!verbOk ? `Past simple of <em>(${item.baseVerb})</em> is <strong>${item.verbAns}</strong>. ` : ""}${!nounOk ? `Best word from box: <strong>${item.nounAns}${item.nounAns2 ? " and " + item.nounAns2 : ""}</strong>.` : ""}`;
+        }
+      });
+
+      const extraVal = document.getElementById("extraWordInput").value.trim().toLowerCase();
+      const extraFb = document.getElementById("extraWordFeedback");
+      extraFb.classList.remove("hidden");
+      responses["5A Extra Word"] = extraVal || "(blank)";
+      if (extraVal === "reeds") {
+        extraFb.className = "text-xs font-bold text-emerald-800";
+        extraFb.textContent = "✅ Spot on! 'reeds' is the extra word.";
+      } else {
+        extraFb.className = "text-xs font-bold text-red-700";
+        extraFb.textContent = "❌ The extra word in the box is 'reeds'.";
+      }
+
+      const rec = ensureCurrentStudentRecord();
+      rec.s4 = { done: true, score, max: 20, mistakes, wordLimitErrors: 0, responses };
+      rec.draftInputs = collectAllFormInputs();
+      saveStudentRecordEverywhere(rec);
+      refreshGlobalProgress();
+
+      document.getElementById("station4Summary").innerHTML = `Station 4 Score: <strong class="text-terracotta">${score}/20 points</strong>.`;
+      showToast(`Grammar & Practice checked: ${score}/20!`, "✏️");
+    }
+
+    // -------------------- STATION 5: UNIVERSAL VOICE RECORDER, UPLOAD & TTS --------------------
+    let mediaRecorder = null;
+    let recordedChunks = [];
+    let currentAudioDataUrl = null;
+    let currentAudioLabel = "Voice Recording";
+    let recordSeconds = 0;
+    let recordTimerInterval = null;
+
+    function updatePeerPostWordCount() {
+      const wc = countWords(document.getElementById("peerPostText").value);
+      document.getElementById("peerPostWordCount").textContent = `${wc} words`;
+    }
+
+    function getSupportedAudioMimeType() {
+      if (typeof MediaRecorder === "undefined" || typeof MediaRecorder.isTypeSupported !== "function") {
+        return "";
+      }
+      const candidates = [
+        "audio/webm;codecs=opus",
+        "audio/webm",
+        "audio/mp4",
+        "audio/ogg;codecs=opus",
+        "audio/ogg"
+      ];
+      for (const type of candidates) {
+        if (MediaRecorder.isTypeSupported(type)) return type;
+      }
+      return "";
+    }
+
+    async function startRecording() {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        document.getElementById("recorderStatus").innerHTML =
+          `<span class="text-amber-900 font-medium">⚠️ Browser microphone API is unavailable in this window. Use <strong>Upload Audio File (.mp3/.m4a/.wav)</strong> or <strong>Generate Spoken Audio (TTS)</strong> right next to it!</span>`;
+        showToast("Use Upload Audio File or Generate Spoken Audio (TTS)!", "🔊");
+        return;
+      }
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        recordedChunks = [];
+        const mimeType = getSupportedAudioMimeType();
+        mediaRecorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
+
+        mediaRecorder.ondataavailable = e => {
+          if (e.data && e.data.size > 0) recordedChunks.push(e.data);
+        };
+
+        mediaRecorder.onstop = () => {
+          const blobType = mediaRecorder.mimeType || mimeType || "audio/webm";
+          const blob = new Blob(recordedChunks, { type: blobType });
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            currentAudioDataUrl = reader.result;
+            currentAudioLabel = `Recorded Voice (0:${String(Math.max(1, recordSeconds)).padStart(2, "0")})`;
+            const preview = document.getElementById("recordedAudioPreview");
+            preview.src = currentAudioDataUrl;
+            document.getElementById("audioPreviewBox").classList.remove("hidden");
+            document.getElementById("recorderStatus").textContent = `✅ ${currentAudioLabel} ready! Play it back below or click Post to Class Wall.`;
+            saveCurrentDraftState();
+          };
+          reader.readAsDataURL(blob);
+          stream.getTracks().forEach(t => t.stop());
+        };
+
+        mediaRecorder.start(250);
+        recordSeconds = 0;
+        document.getElementById("recordTimer").textContent = "0s";
+        document.getElementById("btnStartRecord").classList.add("hidden");
+        document.getElementById("btnStopRecord").classList.remove("hidden");
+        document.getElementById("recorderStatus").textContent = "🔴 Recording... Speak your Neolithic farmer answers clearly!";
+
+        recordTimerInterval = setInterval(() => {
+          recordSeconds++;
+          document.getElementById("recordTimer").textContent = `${recordSeconds}s`;
+          if (recordSeconds >= 60) stopRecording();
+        }, 1000);
+      } catch (err) {
+        document.getElementById("recorderStatus").innerHTML =
+          `<span class="text-amber-900 font-medium">⚠️ Microphone access was blocked by browser/iframe permissions. Click <strong>Upload Audio File (.mp3/.m4a/.wav)</strong> or <strong>Generate Spoken Audio (TTS)</strong>!</span>`;
+        showToast("Mic blocked — use Upload Audio File or Generate Spoken Audio (TTS)!", "🔊");
+      }
+    }
+
+    function stopRecording() {
+      clearInterval(recordTimerInterval);
+      document.getElementById("btnStopRecord").classList.add("hidden");
+      document.getElementById("btnStartRecord").classList.remove("hidden");
+      if (mediaRecorder && mediaRecorder.state !== "inactive") {
+        mediaRecorder.stop();
+      }
+    }
+
+    function handleAudioFileUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      if (file.size > 4 * 1024 * 1024) {
+        showToast("Please choose an audio file smaller than 4 MB.", "⚠️");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        currentAudioDataUrl = reader.result;
+        currentAudioLabel = `Uploaded Audio (${file.name})`;
+        const preview = document.getElementById("recordedAudioPreview");
+        preview.src = currentAudioDataUrl;
+        document.getElementById("audioPreviewBox").classList.remove("hidden");
+        document.getElementById("recorderStatus").textContent = `✅ ${currentAudioLabel} attached! Ready to post.`;
+        saveCurrentDraftState();
+        showToast("Audio file attached!", "📎");
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function attachTtsVoiceNote() {
+      const txt = document.getElementById("peerPostText").value.trim();
+      if (!txt) {
+        showToast("Write your interview answer in box 1 first so TTS can speak it!", "⚠️");
+        return;
+      }
+      currentAudioDataUrl = "tts://spoken";
+      currentAudioLabel = "Spoken Audio (TTS)";
+      document.getElementById("audioPreviewBox").classList.add("hidden");
+      document.getElementById("recorderStatus").textContent = "✅ Spoken Audio (TTS) attached! Previewing spoken audio now...";
+      playTextToSpeechAudio(window.appState.currentStudent.name || "Student", txt);
+    }
+
+    function clearRecording() {
+      currentAudioDataUrl = null;
+      currentAudioLabel = "Voice Recording";
+      document.getElementById("recordedAudioPreview").src = "";
+      document.getElementById("audioPreviewBox").classList.add("hidden");
+      const uploadInp = document.getElementById("audioUploadInput");
+      if (uploadInp) uploadInp.value = "";
+      document.getElementById("recorderStatus").textContent = "Click Record Voice to speak aloud (up to 60s), upload an audio file, or generate spoken TTS audio.";
+    }
+
+    function submitPeerPost() {
+      const text = document.getElementById("peerPostText").value.trim();
+      const topic = document.getElementById("postTopicSelect").value;
+      const authorName = (window.appState.currentStudent.name || "").trim();
+      const authorClass = (window.appState.currentStudent.studentClass || "").trim();
+
+      if (!authorName || !authorClass) {
+        showToast("Please enter your Full Name and Class first!", "⚠️");
+        openStudentProfileModal();
+        return;
+      }
+
+      if (!text && !currentAudioDataUrl) {
+        showToast("Please write your answers or record/attach audio first!", "⚠️");
+        return;
+      }
+
+      const hasRealAudioFile = currentAudioDataUrl && currentAudioDataUrl.startsWith("data:audio");
+
+      const newPost = {
+        id: "post_" + Date.now(),
+        createdAtMs: Date.now(),
+        author: authorName,
+        studentClass: authorClass,
+        topic,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        text: text || "(Voice interview recording submitted)",
+        simulatedSpeechText: text || "Hello! I lived in Mesopotamia and grew wheat and barley.",
+        audioUrl: hasRealAudioFile ? currentAudioDataUrl : null,
+        voiceDuration: hasRealAudioFile ? currentAudioLabel : "Spoken Audio (TTS)",
+        likes: 0,
+        comments: []
+      };
+
+      window.appState.peerPosts.unshift(newPost);
+      try {
+        localStorage.setItem(POSTS_STORAGE_KEY, JSON.stringify(window.appState.peerPosts));
+      } catch (e) {}
+
+      const rec = ensureCurrentStudentRecord();
+      rec.s5.done = true;
+      rec.s5.posts = (rec.s5.posts || 0) + 1;
+      saveStudentRecordEverywhere(rec);
+
+      if (typeof window.syncPeerPostToCloud === 'function') {
+        window.syncPeerPostToCloud(newPost);
+      }
+
+      document.getElementById("peerPostText").value = "";
+      updatePeerPostWordCount();
+      clearRecording();
+      renderPeerFeed();
+      refreshGlobalProgress();
+      showToast("Posted your written & voice entry to the Class Wall!", "🎉");
+    }
+
+    function playTextToSpeechAudio(author, text) {
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = "en-GB";
+        utter.rate = 0.92;
+        window.speechSynthesis.speak(utter);
+        showToast(`🔊 Playing ${author}'s spoken response...`, "🎧");
+      } else {
+        showToast(`🎧 Playing voice note from ${author}`, "🔊");
+      }
+    }
+
+    function toggleLikePost(postId) {
+      const post = window.appState.peerPosts.find(p => p.id === postId);
+      if (post) {
+        post.likes = (post.likes || 0) + 1;
+        try {
+          localStorage.setItem(POSTS_STORAGE_KEY, JSON.stringify(window.appState.peerPosts));
+        } catch (e) {}
+        if (typeof window.syncPeerPostToCloud === 'function') {
+          window.syncPeerPostToCloud(post);
+        }
+        renderPeerFeed();
+      }
+    }
+
+    function addPeerComment(postId, isVoiceReply = false) {
+      const input = document.getElementById(`cmt_inp_${postId}`);
+      const txt = input.value.trim();
+      const authorName = (window.appState.currentStudent.name || "").trim();
+      const authorClass = (window.appState.currentStudent.studentClass || "").trim();
+
+      if (!authorName || !authorClass) {
+        showToast("Please enter your Full Name and Class first!", "⚠️");
+        openStudentProfileModal();
+        return;
+      }
+
+      if (!txt) {
+        showToast("Type a short peer feedback comment or voice reply first!", "⚠️");
+        return;
+      }
+
+      const post = window.appState.peerPosts.find(p => p.id === postId);
+      if (post) {
+        post.comments.push({
+          author: `${authorName} (${authorClass})`,
+          text: txt,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          isVoiceReply
+        });
+        try {
+          localStorage.setItem(POSTS_STORAGE_KEY, JSON.stringify(window.appState.peerPosts));
+        } catch (e) {}
+
+        const rec = ensureCurrentStudentRecord();
+        rec.s5.done = true;
+        rec.s5.replies = (rec.s5.replies || 0) + 1;
+        saveStudentRecordEverywhere(rec);
+
+        if (typeof window.syncPeerPostToCloud === 'function') {
+          window.syncPeerPostToCloud(post);
+        }
+
+        renderPeerFeed();
+        refreshGlobalProgress();
+        showToast(isVoiceReply ? "Voice reply posted to classmate!" : "Peer comment posted!", "💬");
+      }
+    }
+
+    // -------------------- STATION 6: FINAL SUBMIT ASSIGNMENT WORKFLOW --------------------
+    function updateSubmissionUI() {
+      const rec = ensureCurrentStudentRecord();
+      const checklistBox = document.getElementById("submissionChecklistBox");
+      if (!checklistBox) return;
+
+      const items = [
+        { title: "Station 1: Farming Words", done: rec.s1.done, detail: `${rec.s1.score}/${rec.s1.max} pts` },
+        { title: "Station 2: 3A Fact File", done: rec.s2.done, detail: `${rec.s2.score}/${rec.s2.max} pts (${rec.s2.wordLimitErrors || 0} word-limit alerts)` },
+        { title: "Station 3: Timeline & Map", done: rec.s3.done, detail: `${rec.s3.score}/${rec.s3.max} pts` },
+        { title: "Station 4: Past Simple & 5A", done: rec.s4.done, detail: `${rec.s4.score}/${rec.s4.max} pts` },
+        { title: "Station 5: Speaking & Peer Wall", done: rec.s5.done, detail: `${rec.s5.posts || 0} post(s), ${rec.s5.replies || 0} reply(ies)` }
+      ];
+
+      checklistBox.innerHTML = items.map(it => `
+        <div class="p-3.5 rounded-2xl border ${it.done ? "bg-emerald-50/70 border-emerald-200" : "bg-amber-50/60 border-amber-200"} flex items-start justify-between gap-2">
+          <div>
+            <div class="text-xs font-bold text-ink">${it.title}</div>
+            <div class="text-[11px] text-stone-600 mt-0.5">${it.detail}</div>
+          </div>
+          <span class="text-xs font-bold px-2 py-0.5 rounded-full ${it.done ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"}">
+            ${it.done ? "✓ Checked" : "Pending"}
+          </span>
+        </div>
+      `).join("");
+
+      const receiptCard = document.getElementById("submissionReceiptCard");
+      const actionRow = document.getElementById("submitActionRow");
+      const badge6 = document.getElementById("badgeStation6");
+
+      if (rec.submitted) {
+        receiptCard.classList.remove("hidden");
+        actionRow.classList.add("hidden");
+        const totalScore = rec.s1.score + rec.s2.score + rec.s3.score + rec.s4.score;
+        const pct = Math.round((totalScore / 48) * 100);
+        document.getElementById("submissionTimestampText").textContent =
+          `Student: ${rec.name} (${rec.studentClass}) • Submitted on ${rec.submittedAt || "Today"}`;
+        document.getElementById("submissionReceiptSummary").textContent =
+          `Final Accuracy Score: ${totalScore}/48 (${pct}%) • Speaking Posts: ${rec.s5.posts || 0} • Peer Replies: ${rec.s5.replies || 0}. Your teacher can now view all of your responses and voice recordings on the Teacher Progress Dashboard.`;
+        if (badge6) {
+          badge6.className = "text-xs px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold";
+          badge6.textContent = "Submitted ✅";
+        }
+      } else {
+        receiptCard.classList.add("hidden");
+        actionRow.classList.remove("hidden");
+        if (badge6) {
+          badge6.className = "text-xs px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-900 font-semibold";
+          badge6.textContent = "Draft";
+        }
+      }
+    }
+
+    function submitFinalAssignment() {
+      const authorName = (window.appState.currentStudent.name || "").trim();
+      const authorClass = (window.appState.currentStudent.studentClass || "").trim();
+      if (!authorName || !authorClass) {
+        showToast("Please enter your Full Name and Class before submitting!", "⚠️");
+        openStudentProfileModal();
+        return;
+      }
+
+      const rec = ensureCurrentStudentRecord();
+      if (!rec.s1.done) checkStation1();
+      if (!rec.s2.done) checkStation2();
+      if (!rec.s3.done) checkStation3();
+      if (!rec.s4.done) checkStation4();
+
+      const updatedRec = ensureCurrentStudentRecord();
+      updatedRec.submitted = true;
+      updatedRec.submittedAt = new Date().toLocaleString([], {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+      const noteEl = document.getElementById("studentSubmissionNote");
+      if (noteEl) updatedRec.submissionNote = noteEl.value.trim();
+
+      saveStudentRecordEverywhere(updatedRec);
+      updateSubmissionUI();
+      refreshGlobalProgress();
+      showToast("Assignment Submitted ✅ Your teacher can now see your work!", "🎉");
+    }
+
+    function reopenSubmissionForEdit() {
+      const rec = ensureCurrentStudentRecord();
+      rec.submitted = false;
+      saveStudentRecordEverywhere(rec);
+      updateSubmissionUI();
+      refreshGlobalProgress();
+      showToast("Submission unlocked for editing. Click Submit Final Assignment again when ready.", "✏️");
+    }
+
+    function downloadStudentSubmissionFile() {
+      const rec = ensureCurrentStudentRecord();
+      if (!rec.name || !rec.studentClass) {
+        showToast("Please enter your Full Name and Class first!", "⚠️");
+        return;
+      }
+      rec.draftInputs = collectAllFormInputs();
+      const myPosts = window.appState.peerPosts.filter(
+        p => p.author === rec.name && p.studentClass === rec.studentClass
+      );
+      const payload = {
+        type: "FCW_STUDENT_SUBMISSION",
+        exportedAt: new Date().toISOString(),
+        studentRecord: rec,
+        peerPosts: myPosts
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      const safeName = `${rec.name}_${rec.studentClass}`.replace(/[^a-zA-Z0-9_-]/g, "_");
+      a.download = `Submission_${safeName}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Student submission file downloaded!", "📥");
+    }
+
+    function importStudentSubmissionJSON(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const data = JSON.parse(e.target.result);
+          const rec = data.studentRecord || (data.name && data.studentClass ? data : null);
+          if (!rec || !rec.name || !rec.studentClass) {
+            showToast("Invalid student submission file.", "⚠️");
+            return;
+          }
+          saveStudentRecordEverywhere(rec);
+
+          if (Array.isArray(data.peerPosts)) {
+            data.peerPosts.forEach(p => {
+              if (p.id && !window.appState.peerPosts.some(existing => existing.id === p.id)) {
+                window.appState.peerPosts.push(p);
+              }
+            });
+            try {
+              localStorage.setItem(POSTS_STORAGE_KEY, JSON.stringify(window.appState.peerPosts));
+            } catch (err) {}
+          }
+          renderPeerFeed();
+          renderTeacherDashboard();
+          showToast(`Imported submission from ${rec.name} (${rec.studentClass})!`, "✅");
+        } catch (err) {
+          showToast("Could not read JSON file.", "⚠️");
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = "";
+    }
+
+    function renderPeerFeed() {
+      const container = document.getElementById("peerFeedList");
+      document.getElementById("peerPostCountBadge").textContent = `${window.appState.peerPosts.length} posts`;
+
+      if (window.appState.peerPosts.length === 0) {
+        container.innerHTML = `
+          <div class="p-8 rounded-2xl bg-linen/60 border border-dashed border-stone-300 text-center space-y-2">
+            <div class="text-3xl">🎙️</div>
+            <div class="font-bold text-sm text-ink">No student posts yet!</div>
+            <p class="text-xs text-stone-500 max-w-md mx-auto">Post your Neolithic Farmer interview above. Classmates who log in later can listen to your voice recording and leave written or spoken feedback!</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = window.appState.peerPosts.map(post => `
+        <article class="p-4 sm:p-5 rounded-2xl bg-linen/50 border border-stone-200 space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-full bg-tealDeep text-white text-xs font-bold flex items-center justify-center">
+                ${post.author.slice(0, 2).toUpperCase()}
+              </div>
+              <div>
+                <div class="text-sm font-bold text-ink">${post.author} <span class="text-xs font-normal text-stone-500">(${post.studentClass})</span></div>
+                <div class="text-[11px] text-stone-500">${post.timestamp}</div>
+              </div>
+            </div>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border border-stone-200 text-tealDeep">${post.topic}</span>
+          </div>
+
+          <p class="text-sm text-ink bg-white p-3.5 rounded-xl border border-stone-200/80 leading-relaxed">${post.text}</p>
+
+          ${post.audioUrl ? `
+            <div class="bg-orange-50 px-3 py-2 rounded-xl border border-orange-200 flex items-center gap-2">
+              <span class="text-xs font-bold text-terracotta">🎙️ ${post.author}'s Voice Recording:</span>
+              <audio src="${post.audioUrl}" controls class="h-8 flex-1"></audio>
+            </div>
+          ` : `
+            <div class="bg-orange-50/80 px-3.5 py-2 rounded-xl border border-orange-200 flex items-center justify-between gap-2">
+              <span class="text-xs font-semibold text-terracotta">🎙️ ${post.voiceDuration || "Spoken Audio (TTS)"}</span>
+              <button type="button" onclick="playTextToSpeechAudio('${post.author.replace(/'/g, "\\'")}', '${(post.simulatedSpeechText || post.text).replace(/'/g, "\\'")}')" class="px-3 py-1 rounded-lg bg-terracotta text-white text-xs font-bold hover:bg-terracottaDark transition">
+                ▶ Listen to Classmate
+              </button>
+            </div>
+          `}
+
+          <div class="pt-1 space-y-2.5">
+            <div class="flex items-center gap-4 text-xs text-stone-600">
+              <button type="button" onclick="toggleLikePost('${post.id}')" class="font-semibold hover:text-terracotta flex items-center gap-1 transition">
+                <span>👏</span>
+                <span>Applause (${post.likes || 0})</span>
+              </button>
+              <span>💬 ${post.comments.length} peer replies</span>
+            </div>
+
+            ${post.comments.length > 0 ? `
+              <div class="space-y-1.5 pl-3 border-l-2 border-tealDeep/40">
+                ${post.comments.map(c => `
+                  <div class="bg-white/95 px-3 py-2 rounded-xl text-xs border border-stone-100">
+                    <div class="flex justify-between text-[11px] text-stone-500 mb-0.5">
+                      <strong class="text-tealDeep">${c.author} ${c.isVoiceReply ? "• 🎙️ Voice Reply" : ""}</strong>
+                      <span>${c.time}</span>
+                    </div>
+                    <div class="text-ink flex items-center justify-between gap-2">
+                      <span>${c.text}</span>
+                      ${c.isVoiceReply ? `<button type="button" onclick="playTextToSpeechAudio('${c.author.replace(/'/g, "\\'")}', '${c.text.replace(/'/g, "\\'")}')" class="shrink-0 text-[11px] font-bold text-terracotta hover:underline">▶ Play</button>` : ""}
+                    </div>
+                  </div>
+                `).join("")}
+              </div>
+            ` : ""}
+
+            <div class="flex flex-wrap sm:flex-nowrap gap-2">
+              <input type="text" id="cmt_inp_${post.id}" placeholder="Write feedback on past verbs / word limits or ask a question..." class="flex-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-xs focus:outline-none focus:ring-2 focus:ring-tealDeep">
+              <button type="button" onclick="addPeerComment('${post.id}', false)" class="px-3.5 py-2 rounded-xl bg-tealDeep hover:bg-tealDark text-white text-xs font-bold transition">
+                Reply
+              </button>
+              <button type="button" onclick="addPeerComment('${post.id}', true)" title="Post as spoken voice reply" class="px-3 py-2 rounded-xl bg-orange-100 hover:bg-orange-200 text-terracottaDark text-xs font-bold transition">
+                🎙️ Voice Reply
+              </button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    // -------------------- STUDENT IDENTITY & PROGRESS TRACKING --------------------
+    function updateStudentIdentity() {
+      const nameVal = document.getElementById("headerStudentName").value.trim();
+      const classVal = document.getElementById("headerStudentClass").value.trim();
+      if (!nameVal || !classVal) return;
+      window.appState.currentStudent = { name: nameVal, studentClass: classVal };
+      const rec = ensureCurrentStudentRecord();
+      saveStudentRecordEverywhere(rec);
+      refreshGlobalProgress();
+      showToast(`Tracking active for ${nameVal} (${classVal})`, "👤");
+    }
+
+    function openStudentProfileModal() {
+      document.getElementById("modalStudentName").value = window.appState.currentStudent.name || "";
+      document.getElementById("modalStudentClass").value = window.appState.currentStudent.studentClass || "";
+      document.getElementById("studentProfileModal").classList.remove("hidden");
+    }
+
+    function closeStudentProfileModal() {
+      document.getElementById("studentProfileModal").classList.add("hidden");
+    }
+
+    function applyModalStudentProfile() {
+      const name = document.getElementById("modalStudentName").value.trim();
+      const cls = document.getElementById("modalStudentClass").value.trim();
+      if (!name || !cls) {
+        showToast("Please enter both your Full Name and Class!", "⚠️");
+        return;
+      }
+      window.appState.currentStudent = { name, studentClass: cls };
+      const rec = ensureCurrentStudentRecord();
+      saveStudentRecordEverywhere(rec);
+      refreshGlobalProgress();
+      closeStudentProfileModal();
+      showToast(`Saved profile: ${name} (${cls})`, "👋");
+    }
+
+    function refreshGlobalProgress() {
+      const { name, studentClass } = window.appState.currentStudent;
+      document.getElementById("headerStudentName").value = name || "";
+      document.getElementById("headerStudentClass").value = studentClass || "";
+      document.getElementById("studentAvatar").textContent = name ? name.slice(0, 2).toUpperCase() : "ST";
+
+      const rec = ensureCurrentStudentRecord();
+      const stationsDone = [rec.s1.done, rec.s2.done, rec.s3.done, rec.s4.done, rec.s5.done].filter(Boolean).length;
+      const pct = Math.round((stationsDone / 5) * 100);
+      const totalPts = rec.s1.score + rec.s2.score + rec.s3.score + rec.s4.score;
+
+      document.getElementById("globalProgressBar").style.width = `${pct}%`;
+      document.getElementById("globalProgressText").textContent = `${pct}% (${stationsDone}/5 stations)`;
+      document.getElementById("globalScoreText").textContent = `${totalPts}/48`;
+
+      document.getElementById("badgeStation1").textContent = `${rec.s1.score}/6`;
+      document.getElementById("badgeStation2").textContent = `${rec.s2.score}/6`;
+      document.getElementById("badgeStation3").textContent = `${rec.s3.score}/16`;
+      document.getElementById("badgeStation4").textContent = `${rec.s4.score}/20`;
+      document.getElementById("badgeStation5").textContent = rec.s5.done ? `✓ ${rec.s5.posts} post` : "Speak & Share";
+
+      const badge6 = document.getElementById("badgeStation6");
+      const quickSubmitBtn = document.getElementById("quickSubmitHeaderBtn");
+      if (rec.submitted) {
+        if (badge6) {
+          badge6.className = "text-xs px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold";
+          badge6.textContent = "Submitted ✅";
+        }
+        if (quickSubmitBtn) {
+          quickSubmitBtn.className = "px-3 py-1 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition";
+          quickSubmitBtn.textContent = "Assignment Submitted ✅";
+        }
+      } else {
+        if (badge6) {
+          badge6.className = "text-xs px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-900 font-semibold";
+          badge6.textContent = "Draft";
+        }
+        if (quickSubmitBtn) {
+          quickSubmitBtn.className = "px-3 py-1 rounded-xl bg-terracotta hover:bg-terracottaDark text-white font-bold text-xs shadow-sm transition";
+          quickSubmitBtn.textContent = "📨 Submit Assignment";
+        }
+      }
+    }
+
+    // -------------------- TEACHER PROGRESS DASHBOARD --------------------
+    let currentTeacherRenderedStudents = [];
+
+    function renderTeacherDashboard() {
+      const allStudents = Object.values(window.appState.roster).filter(s => s && s.name && s.studentClass);
+
+      const classSelect = document.getElementById("teacherClassFilter");
+      const currentFilter = classSelect.value || "ALL";
+      const searchQuery = (document.getElementById("teacherSearchInput")?.value || "").toLowerCase().trim();
+      const uniqueClasses = Array.from(new Set(allStudents.map(s => s.studentClass))).sort();
+      classSelect.innerHTML = `<option value="ALL">All Classes (${allStudents.length})</option>` +
+        uniqueClasses.map(c => `<option value="${c}" ${currentFilter === c ? "selected" : ""}>Class ${c}</option>`).join("");
+
+      const students = allStudents.filter(s => {
+        const matchClass = currentFilter === "ALL" || s.studentClass === currentFilter;
+        const matchName = !searchQuery || s.name.toLowerCase().includes(searchQuery) || (s.studentCode || "").toLowerCase().includes(searchQuery);
+        return matchClass && matchName;
+      });
+      currentTeacherRenderedStudents = students;
+
+      const totalStudents = students.length;
+      const submittedCount = students.filter(s => s.submitted).length;
+      const avgAccuracyPct = totalStudents === 0 ? 0 : Math.round(
+        students.reduce((acc, s) => acc + ((s.s1.score + s.s2.score + s.s3.score + s.s4.score) / 48) * 100, 0) / totalStudents
+      );
+      const totalPeerPostsAndReplies = window.appState.peerPosts.reduce((acc, p) => acc + 1 + (p.comments ? p.comments.length : 0), 0);
+
+      document.getElementById("teacherKpiCards").innerHTML = `
+        <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-sm">
+          <div class="text-xs text-stone-500 font-semibold">Total Students</div>
+          <div class="text-2xl font-display font-bold text-ink mt-1">${totalStudents} <span class="text-xs font-normal text-stone-500">active learners</span></div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-sm">
+          <div class="text-xs text-stone-500 font-semibold">Submitted Count</div>
+          <div class="text-2xl font-display font-bold text-emerald-700 mt-1">${submittedCount} <span class="text-xs font-normal text-stone-500">of ${totalStudents} submitted</span></div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-sm">
+          <div class="text-xs text-stone-500 font-semibold">Average Accuracy</div>
+          <div class="text-2xl font-display font-bold text-terracotta mt-1">${avgAccuracyPct}% <span class="text-xs font-normal text-stone-500">across Stations 1–4</span></div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-sm">
+          <div class="text-xs text-stone-500 font-semibold">Total Peer Posts / Replies</div>
+          <div class="text-2xl font-display font-bold text-tealDeep mt-1">${totalPeerPostsAndReplies} <span class="text-xs font-normal text-stone-500">asynchronous items</span></div>
+        </div>
+      `;
+
+      const tbody = document.getElementById("teacherStudentTableBody");
+      if (students.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="py-10 px-4 text-center text-stone-500">
+              <div class="text-2xl mb-1">📭</div>
+              <div class="font-bold text-ink text-sm">No student submissions yet</div>
+              <p class="text-xs max-w-md mx-auto mt-1">When students enter their Full Name & Class and submit their work at home (or when you click Import Student .json above), their scores and voice recordings appear here.</p>
+            </td>
+          </tr>
+        `;
+      } else {
+        tbody.innerHTML = students.map((s, idx) => {
+          const doneCount = [s.s1.done, s.s2.done, s.s3.done, s.s4.done, s.s5.done].filter(Boolean).length;
+          const compPct = Math.round((doneCount / 5) * 100);
+          const statusBadge = s.submitted
+            ? `<span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold">Submitted ✅</span>`
+            : doneCount > 0
+              ? `<span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 text-[11px] font-bold">In Progress</span>`
+              : `<span class="px-2.5 py-1 rounded-full bg-stone-100 text-stone-500 text-[11px] font-bold">Joined</span>`;
+
+          const totalScore = s.s1.score + s.s2.score + s.s3.score + s.s4.score;
+          const scorePct = Math.round((totalScore / 48) * 100);
+          const wlErrors = (s.s2.wordLimitErrors || 0) + (s.s3.wordLimitErrors || 0);
+          const allMistakes = [...(s.s1.mistakes || []), ...(s.s2.mistakes || []), ...(s.s3.mistakes || []), ...(s.s4.mistakes || [])];
+
+          return `
+            <tr class="hover:bg-linen/40">
+              <td class="py-3 px-4 font-bold text-ink">
+                ${s.name} <span class="text-xs font-normal text-stone-500">(${s.studentClass}${s.studentCode ? ` • ${s.studentCode}` : ""})</span>
+                <div class="text-[11px] font-normal text-stone-400">${s.submitted && s.submittedAt ? `Submitted: ${s.submittedAt}` : `Active: ${s.lastActive || "Now"}`}</div>
+              </td>
+              <td class="py-3 px-3">${statusBadge}</td>
+              <td class="py-3 px-3 font-bold text-tealDeep whitespace-nowrap">${compPct}% <span class="text-xs font-normal text-stone-500">(${doneCount}/5)</span></td>
+              <td class="py-3 px-3 font-bold text-ink">${scorePct}% <span class="text-xs font-normal text-stone-500">(${totalScore}/48)</span></td>
+              <td class="py-3 px-3">
+                ${wlErrors > 0
+                  ? `<span class="px-2 py-0.5 rounded-full bg-red-100 text-red-700 font-bold text-xs">${wlErrors} over-limit</span>`
+                  : `<span class="text-stone-400 text-xs">0</span>`}
+              </td>
+              <td class="py-3 px-3 text-xs max-w-xs">
+                ${allMistakes.length === 0
+                  ? `<span class="text-emerald-700 font-medium">${doneCount > 0 ? "✓ No errors recorded" : "—"}</span>`
+                  : `<ul class="list-disc pl-4 text-red-700 space-y-0.5">${allMistakes.slice(0, 2).map(m => `<li>${m}</li>`).join("")}${allMistakes.length > 2 ? `<li class="text-stone-500">+${allMistakes.length - 2} more...</li>` : ""}</ul>`
+                }
+              </td>
+              <td class="py-3 px-3 text-xs whitespace-nowrap">
+                <span class="font-semibold text-tealDeep">${s.s5.posts || 0} voice/posts</span>, <span class="text-stone-600">${s.s5.replies || 0} replies</span>
+              </td>
+              <td class="py-3 px-4 text-right">
+                <button type="button" onclick="openInspectModal(${idx})" class="px-3 py-1.5 rounded-xl bg-tealSoft hover:bg-teal-100 text-tealDeep text-xs font-bold transition">
+                  Inspect Answers
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join("");
+      }
+
+      const allClassMistakes = students.flatMap(s => [...(s.s1.mistakes || []), ...(s.s2.mistakes || []), ...(s.s3.mistakes || []), ...(s.s4.mistakes || [])]);
+      document.getElementById("classDiagnosticsList").innerHTML = allClassMistakes.length === 0
+        ? `<div class="p-3.5 rounded-xl bg-linen/70 text-stone-600">No mistakes recorded yet. Once students submit answers, common class errors will appear here.</div>`
+        : allClassMistakes.slice(0, 6).map(m => `
+            <div class="p-3.5 rounded-xl bg-red-50/70 border border-red-200 text-red-900 flex items-start gap-2">
+              <span>⚠️</span>
+              <span>${m}</span>
+            </div>
+          `).join("");
+    }
+
+    function openInspectModal(idx) {
+      const s = currentTeacherRenderedStudents[idx];
+      if (!s) return;
+      document.getElementById("inspectModalTitle").textContent = `${s.name} (${s.studentClass}) — ${s.submitted ? "Submitted ✅" : "In Progress"}`;
+      const allMistakes = [...(s.s1.mistakes || []), ...(s.s2.mistakes || []), ...(s.s3.mistakes || []), ...(s.s4.mistakes || [])];
+      const studentAudioPosts = window.appState.peerPosts.filter(p => p.author === s.name && p.studentClass === s.studentClass);
+
+      document.getElementById("inspectModalBody").innerHTML = `
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <div class="p-3 rounded-xl bg-linen/70"><strong>Station 1:</strong> ${s.s1.score}/${s.s1.max}</div>
+          <div class="p-3 rounded-xl bg-linen/70"><strong>Station 2:</strong> ${s.s2.score}/${s.s2.max}</div>
+          <div class="p-3 rounded-xl bg-linen/70"><strong>Station 3:</strong> ${s.s3.score}/${s.s3.max}</div>
+          <div class="p-3 rounded-xl bg-linen/70"><strong>Station 4:</strong> ${s.s4.score}/${s.s4.max}</div>
+        </div>
+        ${s.submissionNote ? `<div class="p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-950"><strong>Student Reflection Note:</strong> ${s.submissionNote}</div>` : ""}
+        ${studentAudioPosts.length > 0 ? `
+          <div class="space-y-2">
+            <div class="font-bold text-terracotta text-sm">Spoken Interview & Peer Wall Submissions (${studentAudioPosts.length}):</div>
+            ${studentAudioPosts.map(p => `
+              <div class="p-3.5 rounded-xl bg-orange-50/70 border border-orange-200 space-y-2">
+                <div class="text-ink">${p.text}</div>
+                ${p.audioUrl ? `<audio src="${p.audioUrl}" controls class="h-9 w-full"></audio>` : `<button type="button" onclick="playTextToSpeechAudio('${p.author.replace(/'/g, "\\'")}', '${(p.simulatedSpeechText || p.text).replace(/'/g, "\\'")}')" class="px-3 py-1.5 rounded-lg bg-terracotta text-white font-bold">▶ Play Spoken Audio (TTS)</button>`}
+              </div>
+            `).join("")}
+          </div>
+        ` : `<div class="p-3 rounded-xl bg-stone-50 text-stone-500">No spoken interview recording posted to Station 5 yet.</div>`}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <div class="font-bold text-ink mb-1">Exact Typed Answers:</div>
+            <pre class="bg-linen/70 p-3 rounded-xl text-[11px] overflow-x-auto whitespace-pre-wrap font-sans text-stone-700">${JSON.stringify({ Station1_Vocab: s.s1.responses, Station2_FactFile: s.s2.responses, Station3_TimelineMap: s.s3.responses, Station4_Grammar: s.s4.responses }, null, 2)}</pre>
+          </div>
+          <div>
+            <div class="font-bold text-red-700 mb-1">All Flagged Mistakes (${allMistakes.length}):</div>
+            ${allMistakes.length === 0
+              ? `<p class="text-emerald-700">No mistakes flagged for this student.</p>`
+              : `<ul class="list-disc pl-4 space-y-1 text-red-800">${allMistakes.map(m => `<li>${m}</li>`).join("")}</ul>`
+            }
+          </div>
+        </div>
+      `;
+      document.getElementById("inspectStudentModal").classList.remove("hidden");
+    }
+
+    function closeInspectModal() {
+      document.getElementById("inspectStudentModal").classList.add("hidden");
+    }
+
+    function exportReportCSV() {
+      const students = Object.values(window.appState.roster).filter(s => s && s.name && s.studentClass);
+      const headers = [
+        "Student Name",
+        "Class",
+        "Student ID",
+        "Submission Status",
+        "Submitted At",
+        "Stations Done (out of 5)",
+        "Station 1 Vocab (6)",
+        "Station 2 Fact File (6)",
+        "Station 3 Timeline & Map (16)",
+        "Station 4 Past Simple (20)",
+        "Accuracy Score %",
+        "Word-Limit Errors",
+        "Voice Posts",
+        "Peer Replies",
+        "Specific Mistakes Made"
+      ];
+      const rows = students.map(s => {
+        const done = [s.s1.done, s.s2.done, s.s3.done, s.s4.done, s.s5.done].filter(Boolean).length;
+        const status = s.submitted ? "Submitted" : done > 0 ? "In Progress" : "Joined";
+        const totalScore = s.s1.score + s.s2.score + s.s3.score + s.s4.score;
+        const scorePct = Math.round((totalScore / 48) * 100);
+        const wlErrors = (s.s2.wordLimitErrors || 0) + (s.s3.wordLimitErrors || 0);
+        const mistakes = [...(s.s1.mistakes || []), ...(s.s2.mistakes || []), ...(s.s3.mistakes || []), ...(s.s4.mistakes || [])].join(" | ");
+        return [
+          `"${s.name}"`,
+          `"${s.studentClass}"`,
+          `"${s.studentCode || ""}"`,
+          `"${status}"`,
+          `"${s.submittedAt || ""}"`,
+          done,
+          `${s.s1.score}/${s.s1.max}`,
+          `${s.s2.score}/${s.s2.max}`,
+          `${s.s3.score}/${s.s3.max}`,
+          `${s.s4.score}/${s.s4.max}`,
+          `${scorePct}%`,
+          wlErrors,
+          s.s5.posts || 0,
+          s.s5.replies || 0,
+          `"${mistakes.replace(/"/g, "'")}"`
+        ].join(",");
+      });
+      const csvContent = "\uFEFF" + [headers.join(","), ...rows].join("\n");
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "Farming_Changes_The_World_Class_Report.csv";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("CSV progress report downloaded!", "📥");
+    }
+
+    function exportReportJSON() {
+      const payload = {
+        unit: "Farming changes the world (A1-A2)",
+        exportedAt: new Date().toISOString(),
+        students: Object.values(window.appState.roster).filter(s => s && s.name && s.studentClass),
+        peerPosts: window.appState.peerPosts
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "Farming_Changes_The_World_Class_Report.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("JSON progress report downloaded!", "📥");
+    }
+
+    // -------------------- INITIALIZE APPLICATION --------------------
+    window.addEventListener("DOMContentLoaded", () => {
+      loadAllPersistedData();
+      renderGlossary();
+      renderStation1();
+      renderStation2();
+      renderStation3();
+      renderStation4();
+
+      document.getElementById("studentWorkbookView").addEventListener("input", () => saveCurrentDraftState());
+      document.getElementById("studentWorkbookView").addEventListener("change", () => saveCurrentDraftState());
+
+      renderPeerFeed();
+      if (window.appState.currentStudent.name && window.appState.currentStudent.studentClass) {
+        restoreSavedStudentWork();
+      }
+      refreshGlobalProgress();
+      showRoleWelcomeScreen();
+    });
+  </script>
+</body>
+</html>
